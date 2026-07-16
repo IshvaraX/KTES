@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>KTES — Karnataka Trekking Exploration Site</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <span class="logo">
+        <svg width="22" height="22" viewBox="0 0 24 24">
+          <path
+            d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"
+          />
+        </svg>
+        KTES
+      </span>
+    </header>
+
+    <main class="container">
+      <div class="card">
+        <h2>Trek Details</h2>
+        <p class="subtitle">Enter the trek information manually</p>
+
+        <div class="form-field">
+          <label>Trek Name *</label>
+          <input
+            type="text"
+            class="form-input"
+            id="trekName"
+            placeholder="Kumara Parvatha"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label>Location *</label>
+          <input
+            type="text"
+            class="form-input"
+            id="trekLocation"
+            placeholder="Kukke Subramanya, Karnataka"
+            required
+          />
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Start Date *</label>
+            <input type="date" class="form-input" id="startDate" required />
+          </div>
+          <div class="form-field">
+            <label>End Date *</label>
+            <input type="date" class="form-input" id="endDate" required />
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Google Maps Link *</label>
+          <input
+            type="url"
+            class="form-input"
+            id="mapsLink"
+            placeholder="https://maps.app.goo.gl/..."
+            required
+          />
+          <span class="hint">Paste the share link from Google Maps</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Group Leader</h2>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Name *</label>
+            <input type="text" class="form-input" id="leaderName" required />
+          </div>
+          <div class="form-field">
+            <label>Phone *</label>
+            <input type="tel" class="form-input" id="leaderPhone" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Emergency Contact *</label>
+            <input
+              type="tel"
+              class="form-input"
+              id="emergencyContact"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label>Passport Photo *</label>
+            <div
+              class="photo-upload"
+              onclick="this.querySelector('input').click()"
+            >
+              <span id="leaderPhotoPlaceholder">+</span>
+              <input
+                type="file"
+                accept="image/*"
+                onchange="App.handlePhoto(this, 'leader')"
+                hidden
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Group Members</h2>
+        <div id="membersContainer"></div>
+        <button class="btn" onclick="App.addMember()">+ Add Member</button>
+      </div>
+
+      <button
+        class="btn btn-primary btn-block"
+        onclick="App.generatePDF()"
+        id="generateBtn"
+      >
+        Download Permits
+      </button>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="src/app.js"></script>
+    <script src="src/form.js"></script>
+    <script src="src/pdf.js"></script>
+    <script src="src/utils.js"></script>
+  </body>
+</html>
