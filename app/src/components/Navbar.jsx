@@ -9,10 +9,14 @@ export default function Navbar() {
   const location = useLocation()
 
   return (
-    <header className="border-b border-slate-light/40 bg-paper">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-50 border-b border-gray-800 bg-gray-900/90 backdrop-blur">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-2">
-          <span className="font-display text-lg font-semibold text-moss-dark">Trailhead</span>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-blue-500">
+            <path d="M12 2L2 20H22L12 2Z" fill="currentColor" opacity="0.9"/>
+            <path d="M12 8L7 18H17L12 8Z" fill="#60A5FA" opacity="0.7"/>
+          </svg>
+          <span className="font-display text-lg font-semibold text-gray-100">Trailhead</span>
         </Link>
         <nav className="flex gap-1">
           {links.map((link) => {
@@ -22,10 +26,10 @@ export default function Navbar() {
                 key={link.to}
                 to={link.to}
                 className={
-                  'rounded-full px-4 py-2 text-sm font-medium transition-colors ' +
+                  'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ' +
                   (active
-                    ? 'bg-moss text-paper'
-                    : 'text-ink/70 hover:bg-canvas hover:text-ink')
+                    ? 'bg-gray-800 text-gray-100'
+                    : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200')
                 }
               >
                 {link.label}

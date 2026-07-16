@@ -14,8 +14,8 @@ export default function TrekkerRow({ trekker, onChange, onRemove, canRemove }) {
   }
 
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-slate-light/40 bg-paper p-3">
-      <label className="relative flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-dashed border-slate-light bg-canvas text-xs text-slate">
+    <div className="flex items-start gap-3 rounded-xl border border-gray-700 bg-gray-800 p-3">
+      <label className="relative flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-dashed border-gray-600 bg-gray-900 text-xs text-gray-500">
         {previewUrl ? (
           <img src={previewUrl} alt="" className="h-full w-full object-cover" />
         ) : (
@@ -30,7 +30,7 @@ export default function TrekkerRow({ trekker, onChange, onRemove, canRemove }) {
           placeholder="Full name"
           value={trekker.name}
           onChange={(e) => update('name', e.target.value)}
-          className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+          className="rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
         />
         <input
           type="number"
@@ -38,13 +38,13 @@ export default function TrekkerRow({ trekker, onChange, onRemove, canRemove }) {
           placeholder="Age"
           value={trekker.age}
           onChange={(e) => update('age', e.target.value)}
-          className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+          className="rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
         />
         <input
           placeholder="Phone"
           value={trekker.phone}
           onChange={(e) => update('phone', e.target.value)}
-          className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+          className="rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
         />
       </div>
 
@@ -53,7 +53,7 @@ export default function TrekkerRow({ trekker, onChange, onRemove, canRemove }) {
           type="button"
           onClick={onRemove}
           aria-label="Remove trekker"
-          className="shrink-0 rounded-full px-2 py-1 text-sm text-slate hover:text-ochre-dark"
+          className="shrink-0 rounded-full px-2 py-1 text-sm text-gray-500 hover:text-indigo-400"
         >
           ✕
         </button>

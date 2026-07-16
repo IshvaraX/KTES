@@ -56,10 +56,10 @@ export default function NewPermitPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-8">
       <p className="label-eyebrow">Before you go</p>
-      <h1 className="mt-1 font-display text-2xl font-semibold text-moss-dark">
+      <h1 className="mt-1 font-display text-2xl font-semibold text-gray-100">
         Create a group safety card
       </h1>
-      <p className="mt-2 max-w-xl text-sm text-slate">
+      <p className="mt-2 max-w-xl text-sm text-gray-400">
         This isn't a legal trekking permit — some regions require one from the local forest
         department. Think of this as a QR-backed record you leave with family, a guide, or a
         homestay before setting off.
@@ -67,15 +67,15 @@ export default function NewPermitPage() {
 
       <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-8">
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-base font-semibold">Trek</h2>
+          <h2 className="font-display text-base font-semibold text-gray-200">Trek</h2>
           <input
             required
             placeholder="Trek name"
             value={trekName}
             onChange={(e) => setTrekName(e.target.value)}
-            className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+            className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
           />
-          <div className="h-64 overflow-hidden rounded-xl border border-slate-light/40">
+          <div className="h-64 overflow-hidden rounded-xl border border-gray-700">
             <TrekMap
               center={location || FALLBACK_CENTER}
               selectable
@@ -83,66 +83,66 @@ export default function NewPermitPage() {
               onMapClick={(pt) => setLocation({ ...pt, label: null })}
             />
           </div>
-          <p className="text-xs text-slate">
+          <p className="text-xs text-gray-500">
             {location ? 'Location set — tap the map again to move it.' : 'Tap the map to set the trek location.'}
           </p>
           <div className="grid grid-cols-2 gap-3">
-            <label className="text-xs text-slate">
+            <label className="text-xs text-gray-400">
               Start date
               <input
                 type="date"
                 required
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-100 focus:border-blue-500 focus:outline-none"
               />
             </label>
-            <label className="text-xs text-slate">
+            <label className="text-xs text-gray-400">
               End date
               <input
                 type="date"
                 required
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-100 focus:border-blue-500 focus:outline-none"
               />
             </label>
           </div>
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-base font-semibold">Group leader</h2>
+          <h2 className="font-display text-base font-semibold text-gray-200">Group leader</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <input
               required
               placeholder="Leader name"
               value={leaderName}
               onChange={(e) => setLeaderName(e.target.value)}
-              className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+              className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
             />
             <input
               required
               placeholder="Leader phone"
               value={leaderPhone}
               onChange={(e) => setLeaderPhone(e.target.value)}
-              className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+              className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
             />
             <input
               placeholder="Emergency contact"
               value={emergencyContact}
               onChange={(e) => setEmergencyContact(e.target.value)}
-              className="rounded-lg border border-slate-light/50 bg-white px-3 py-2 text-sm"
+              className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:outline-none"
             />
           </div>
         </section>
 
         <section className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-base font-semibold">Trekkers</h2>
+            <h2 className="font-display text-base font-semibold text-gray-200">Trekkers</h2>
             <button
               type="button"
               onClick={() => setTrekkers((rows) => [...rows, emptyTrekker()])}
-              className="rounded-full border border-moss px-3 py-1 text-xs font-medium text-moss-dark hover:bg-moss hover:text-paper"
+              className="rounded-full border border-blue-500 px-3 py-1 text-xs font-medium text-blue-400 hover:bg-blue-500 hover:text-gray-900"
             >
               Add trekker
             </button>
@@ -158,12 +158,12 @@ export default function NewPermitPage() {
           ))}
         </section>
 
-        {error && <p className="text-sm text-ochre-dark">{error}</p>}
+        {error && <p className="text-sm text-indigo-400">{error}</p>}
 
         <button
           type="submit"
           disabled={submitting}
-          className="self-start rounded-full bg-moss px-6 py-2.5 text-sm font-medium text-paper hover:bg-moss-light disabled:opacity-60"
+          className="self-start rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-500 disabled:opacity-60"
         >
           {submitting ? 'Saving…' : 'Generate safety card + QR'}
         </button>
