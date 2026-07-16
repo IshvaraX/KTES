@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-canvas text-ink font-body;
+}
+
+/* Signature background: layered contour lines, like a topo map,
+   built from real map-reading language rather than a decorative texture. */
+.topo-bg {
+  background-color: theme('colors.canvas');
+  background-image:
+    repeating-radial-gradient(circle at 15% 20%, transparent 0, transparent 22px, rgba(47, 82, 51, 0.07) 23px, transparent 24px),
+    repeating-radial-gradient(circle at 85% 75%, transparent 0, transparent 30px, rgba(47, 82, 51, 0.06) 31px, transparent 32px),
+    repeating-radial-gradient(circle at 60% 10%, transparent 0, transparent 16px, rgba(184, 121, 46, 0.05) 17px, transparent 18px);
+}
+
+.label-eyebrow {
+  @apply font-mono text-xs uppercase tracking-widest text-slate;
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+}
