@@ -5,8 +5,8 @@ export default {
     extend: {
       colors: {
         bg: "#eef0e6",
-        surface: "#ffffff",
-        "surface-alt": "#e3e8d6",
+        surface: "#d6faa4",
+        "surface-alt": "#ddf3a6",
         ink: "#16231a",
         "ink-soft": "#4b5a4d",
         "ink-faint": "#7c8a7a",

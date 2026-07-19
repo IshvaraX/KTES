@@ -38,7 +38,7 @@ export default function HowItWorks() {
           {STEPS.map((step, index) => (
             <div
               key={step.title}
-              className="rounded-2xl border border-line bg-surface p-6 transition hover:shadow-md"
+              className="rounded-2xl   bg-surface p-6"
             >
               <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-ink text-sm font-medium text-bg">
                 {index + 1}

@@ -132,7 +132,7 @@ className="fixed inset-0 z-[100] flex items-center justify-center bg-white p-6"
       <div className="relative flex max-h-[min(88vh,820px)] w-full max-w-[640px] flex-col overflow-hidden rounded-[10px] bg-surface shadow-modal" role="dialog" aria-modal="true" aria-labelledby="permit-modal-title">
         <div className="flex items-center justify-between border-b border-line px-6 py-5">
           <h2 id="permit-modal-title" className="font-display text-2xl font-bold uppercase text-ink">Register your trek</h2>
-          <button onClick={onClose} aria-label="Close" className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-line text-xl leading-none text-ink-soft hover:bg-surface-alt">×</button>
+          <button onClick={onClose} aria-label="Close" className="flex h-[34px] w-[34px] items-center justify-center rounded-full text-xl leading-none text-ink-soft hover:bg-surface-alt">×</button>
         </div>
 
         <div className="flex flex-col gap-6 overflow-y-auto px-6 py-5">

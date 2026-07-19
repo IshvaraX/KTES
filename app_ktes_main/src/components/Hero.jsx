@@ -2,11 +2,11 @@ import ContourField from "./ContourField";
 
 export default function Hero({ onOpenPermit }) {
   return (
-    <section className="relative overflow-hidden py-28">
+    <section className="relative bg-surface overflow-hidden py-28">
       <ContourField />
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 text-center">
-        <span className="mb-4 rounded-full border border-line px-4 py-1 text-sm text-ink-soft">
+        <span className="mb-4 rounded-full px-4 py-1 text-sm text-ink-soft">
           Karnataka Trekking Exploration Site
         </span>
 
@@ -31,13 +31,13 @@ export default function Hero({ onOpenPermit }) {
 
           <a
             href="#trails"
-            className="rounded-full border border-line px-6 py-3 text-sm font-medium text-ink hover:bg-surface-alt"
+            className="rounded-full   px-6 py-3 text-sm font-medium text-ink hover:bg-surface-alt"
           >
             Browse Treks
           </a>
         </div>
 
-        <div className="mt-20 w-full max-w-3xl rounded-2xl border border-line bg-surface p-8 shadow-sm">
+        <div className="mt-20 w-full max-w-3xl rounded-2xl  bg-surface p-8">
           <div className="grid gap-6 sm:grid-cols-4">
             <div>
               <p className="text-3xl font-semibold text-ink">200+</p>
