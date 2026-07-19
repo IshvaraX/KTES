@@ -30,5 +30,8 @@ const U = {
     });
   },
 
-  validMaps(u) { return /maps\.app\.goo\.gl|goo\.gl\/maps|maps\.google\.com|google\.com\/maps/i.test(u); }
+  validMaps(u) { return /maps\.app\.goo\.gl|goo\.gl\/maps|maps\.google\.com|google\.com\/maps/i.test(u); },
+  permitId() { return 'KT' + Date.now().toString(36).toUpperCase(); }
 };
+export const { id, fmt, toast, imgLoad, fileToURL, validMaps, permitId } = U;
+export { U };

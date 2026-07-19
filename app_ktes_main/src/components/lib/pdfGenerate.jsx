@@ -1,3 +1,5 @@
+import { U } from "./utils.jsx";
+
 const P = {
   async generate(data) {
     const { jsPDF } = window.jspdf;
@@ -156,3 +158,9 @@ const P = {
     pdf.text(`KTES | Page ${page}`, w/2, h-6, { align:'center' });
   }
 };
+
+export function generatePermitPdf(data) {
+  return P.generate(data);
+}
+
+  
