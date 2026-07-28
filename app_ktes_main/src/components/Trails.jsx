@@ -153,8 +153,23 @@ const TRAILS = [
     elevation: "1,130 m",
     isFree: true,
     accessibility: "Easy (Good highway access via Kunigal road, parking available at base)"
-  }
+  },
 ];
+
+// Design tokens — real hex values standing in for what were undefined
+// Tailwind classes (bg-moss, text-lime, bg-surface, etc). Only "#16231a"
+// was confirmed from your original code (used in the shadow arbitrary
+// values); the rest are reasonable placeholders in the same palette.
+// Swap these for your real brand hex codes if they differ.
+const TOKENS = {
+  ink: "#152018b1",       // near-black green, borders/primary text
+  moss: "#16231ac9",      // dark section background (same as ink for now)
+  mossLight: "#9db894", // muted sage for subtext on dark bg
+  lime: "#c6ff2e",      // bright accent
+  surface: "#f6f3ea",   // card background (parchment)
+  inkSoft: "#5b6355",   // muted body text on light surface
+  accent: "#d97a34"     // "Free" badge pop color
+};
 
 export default function Trails() {
   const [filter, setFilter] = useState("all");
@@ -166,47 +181,80 @@ export default function Trails() {
   });
 
   return (
-    <section id="trails" className="py-24">
-      <div className="mx-auto max-w-6xl px-6">
+    <section
+      id="trails"
+      className="relative overflow-hidden py-24"
+      style={{
+        backgroundColor: TOKENS.moss,
+        backgroundImage: "url('/trails.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <style>{`
+        @keyframes pop-in {
+          from { opacity: 0; transform: translateY(12px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-pop-in { animation: pop-in 0.4s ease-out both; }
+        .trail-filter-btn:hover {
+          transform: translate(2px, 2px);
+          box-shadow: 2px 2px 0px 0px ${TOKENS.ink} !important;
+        }
+      `}</style>
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(to bottom, ${TOKENS.moss}e6 0%, ${TOKENS.moss}b3 50%, ${TOKENS.moss}e6 100%)`,
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <p className="mb-3 text-xs font-medium tracking-wider uppercase text-ink-soft">
+          <p className="mb-3 text-xs font-bold uppercase tracking-wider" style={{ color: TOKENS.lime }}>
             Around Bangalore
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-ink">
+          <h2 className="text-3xl font-black uppercase tracking-tight text-white">
             Bettas & Fort Treks
           </h2>
-          <p className="mt-4 text-base text-ink-soft">
+          <p className="mt-4 text-base font-medium" style={{ color: TOKENS.mossLight }}>
             Weekend getaways, monoliths, and ancient fort ruins just beyond the city.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-2 text-sm">
             <button
               onClick={() => setFilter("all")}
-              className={`rounded-full border px-4 py-2 font-medium transition ${
-                filter === "all"
-                  ? "border-ink bg-ink text-surface"
-                  : "border-line text-ink hover:border-ink"
-              }`}
+              className="trail-filter-btn border-4 px-4 py-2 font-bold uppercase tracking-wider transition active:scale-95"
+              style={{
+                borderColor: TOKENS.ink,
+                backgroundColor: filter === "all" ? TOKENS.ink : TOKENS.lime,
+                color: filter === "all" ? TOKENS.lime : TOKENS.ink,
+                boxShadow: `4px 4px 0px 0px ${TOKENS.ink}`,
+              }}
             >
               All ({TRAILS.length})
             </button>
             <button
               onClick={() => setFilter("free")}
-              className={`rounded-full border px-4 py-2 font-medium transition ${
-                filter === "free"
-                  ? "border-ink bg-ink text-surface"
-                  : "border-line text-ink hover:border-ink"
-              }`}
+              className="trail-filter-btn border-4 px-4 py-2 font-bold uppercase tracking-wider transition active:scale-95"
+              style={{
+                borderColor: TOKENS.ink,
+                backgroundColor: filter === "free" ? TOKENS.ink : TOKENS.lime,
+                color: filter === "free" ? TOKENS.lime : TOKENS.ink,
+                boxShadow: `4px 4px 0px 0px ${TOKENS.ink}`,
+              }}
             >
               Free ({TRAILS.filter((t) => t.isFree).length})
             </button>
             <button
               onClick={() => setFilter("very-easy")}
-              className={`rounded-full border px-4 py-2 font-medium transition ${
-                filter === "very-easy"
-                  ? "border-ink bg-ink text-surface"
-                  : "border-line text-ink hover:border-ink"
-              }`}
+              className="trail-filter-btn border-4 px-4 py-2 font-bold uppercase tracking-wider transition active:scale-95"
+              style={{
+                borderColor: TOKENS.ink,
+                backgroundColor: filter === "very-easy" ? TOKENS.ink : TOKENS.lime,
+                color: filter === "very-easy" ? TOKENS.lime : TOKENS.ink,
+                boxShadow: `4px 4px 0px 0px ${TOKENS.ink}`,
+              }}
             >
               Easily Accessible ({TRAILS.filter((t) => t.accessibility.startsWith("Very Easy")).length})
             </button>
@@ -214,40 +262,52 @@ export default function Trails() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {filteredTrails.map((trail) => (
+          {filteredTrails.map((trail, index) => (
             <article
               key={trail.name}
-              className="flex flex-col justify-between rounded-xl bg-surface p-6 transition"
+              className="flex flex-col justify-between border-4 p-6 transition hover:-translate-y-1 animate-pop-in"
+              style={{
+                borderColor: TOKENS.ink,
+                backgroundColor: TOKENS.surface,
+                boxShadow: `6px 6px 0px 0px ${TOKENS.ink}`,
+                animationDelay: `${index * 50}ms`,
+              }}
             >
               <div>
                 <div className="flex items-start justify-between gap-4">
-                  <p className="text-xs font-medium uppercase tracking-wide text-ink-soft">{trail.region}</p>
+                  <p className="text-xs font-bold uppercase tracking-wider" style={{ color: TOKENS.inkSoft }}>
+                    {trail.region}
+                  </p>
 
                   <span
-                    className={`shrink-0 rounded-full border px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide ${
-                      trail.isFree
-                        ? "border-moss text-moss"
-                        : "border-line text-ink-soft"
-                    }`}
+                    className="shrink-0 border-2 px-2 py-0.5 text-[11px] font-black uppercase tracking-wider"
+                    style={{
+                      borderColor: TOKENS.ink,
+                      backgroundColor: trail.isFree ? TOKENS.accent : "#ffffff",
+                      color: trail.isFree ? "#ffffff" : TOKENS.ink,
+                    }}
                   >
                     {trail.isFree ? "Free" : "Paid"}
                   </span>
                 </div>
 
-                <h3 className="mt-3 text-xl font-semibold tracking-tight text-ink">
+                <h3 className="mt-3 text-xl font-black uppercase tracking-tight" style={{ color: TOKENS.ink }}>
                   {trail.name}
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-ink-soft">
+                <p className="mt-3 text-sm leading-6 font-medium" style={{ color: TOKENS.inkSoft }}>
                   {trail.note}
                 </p>
 
-                <p className="mt-4 text-xs text-ink-soft">
+                <p className="mt-4 text-xs font-medium" style={{ color: TOKENS.inkSoft }}>
                   {trail.accessibility}
                 </p>
               </div>
 
-              <div className="mt-5 flex flex-wrap gap-x-4 gap-y-1 pt-4 text-xs text-ink-soft">
+              <div
+                className="mt-5 flex flex-wrap gap-x-4 gap-y-1 border-t-4 pt-4 text-xs font-bold uppercase tracking-wider"
+                style={{ borderColor: TOKENS.ink, color: TOKENS.ink }}
+              >
                 <span>{trail.distance}</span>
                 <span>{trail.elevation}</span>
               </div>

@@ -15,6 +15,8 @@ export default {
         moss: "#33543d",
         "moss-light": "#eaf0e7",
         gold: "#a97f3f",
+        lime: "#c8ff00",
+        "lime-dark": "#a3cc00",
         line: "#cad0ba",
         danger: "#c23b2c",
       },
