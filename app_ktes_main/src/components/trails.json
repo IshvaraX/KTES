@@ -1,0 +1,211 @@
+[
+  {
+    "id": "nijagal-betta",
+    "region": "Tumakuru (Near Dobbaspet)",
+    "name": "Nijagal Betta",
+    "note": "An offbeat trail featuring ancient fort ruins and rock-cut caves along the highway.",
+    "distance": "~4 km",
+    "elevation": "1,110 m",
+    "isFree": true,
+    "category": "hidden-gem",
+    "accessibility": "Very Easy (Located right next to NH-48; park near CCD/Kamath)"
+  },
+  {
+    "id": "madhugiri-betta",
+    "region": "Tumakuru (Madhugiri)",
+    "name": "Madhugiri Betta",
+    "note": "The second-largest monolithic rock in Asia, featuring a steep climb through multiple fort gates.",
+    "distance": "~4.5 km",
+    "elevation": "1,200 m",
+    "isFree": true,
+    "category": "trek",
+    "accessibility": "Easy (Direct KSRTC buses run from Majestic to Madhugiri town)"
+  },
+  {
+    "id": "savandurga",
+    "region": "Ramanagara",
+    "name": "Savandurga",
+    "note": "One of the largest monolith hills in Asia, offering a steep, thrilling climb on bare granite rock.",
+    "distance": "~5 km",
+    "elevation": "1,226 m",
+    "isFree": true,
+    "category": "trek",
+    "accessibility": "Easy (Good road connectivity via Magadi Road or Mysore Road)"
+  },
+  {
+    "id": "muthyala-maduvu",
+    "region": "Anekal",
+    "name": "Muthyala Maduvu Falls",
+    "note": "Pearl Valley waterfall trek with dense forest and stream crossings, best in monsoon.",
+    "distance": "~3 km",
+    "elevation": "950 m",
+    "isFree": true,
+    "category": "waterfall",
+    "accessibility": "Very Easy (40km from Bangalore, auto from Anekal)"
+  },
+  {
+    "id": "thottikallu",
+    "region": "Kanakapura",
+    "name": "Thottikallu Falls - TK Falls",
+    "note": "Popular monsoon waterfall with a short forest trail and natural pool.",
+    "distance": "~2 km",
+    "elevation": "900 m",
+    "isFree": false,
+    "category": "waterfall",
+    "accessibility": "Very Easy (Off Kanakapura Road)"
+  },
+  {
+    "id": "uttari-betta",
+    "region": "Kunigal",
+    "name": "Uttari Betta",
+    "note": "A scenic day and sunrise trek that passes through village fort walls and lush grasslands.",
+    "distance": "~5 km",
+    "elevation": "1,130 m",
+    "isFree": false,
+    "category": "hidden-gem",
+    "accessibility": "Easy (Approx. 2 hours via Magadi Road)"
+  },
+  {
+    "id": "nandi-hills",
+    "region": "Chikkaballapur",
+    "name": "Nandi Hills",
+    "note": "The most famous weekend getaway, utilizing a historical stone step route.",
+    "distance": "~3 km",
+    "elevation": "1,478 m",
+    "isFree": false,
+    "category": "trek",
+    "accessibility": "Very Easy (Highly commercialised, paved roads)"
+  },
+  {
+    "id": "makalidurga",
+    "region": "Doddaballapur",
+    "name": "Makalidurga",
+    "note": "A popular lake-facing hill with an old fort structure overlooking railway tracks.",
+    "distance": "~5 km",
+    "elevation": "1,350 m",
+    "isFree": false,
+    "category": "trek",
+    "accessibility": "Easy (Can be reached by local train to Makalidurga station)"
+  },
+  {
+    "id": "antargange",
+    "region": "Kolar",
+    "name": "Antargange",
+    "note": "A unique volcanic rock hill formation famous for nighttime cave exploration.",
+    "distance": "~3 km",
+    "elevation": "1,226 m",
+    "isFree": true,
+    "category": "hidden-gem",
+    "accessibility": "Easy (Just 4 km from Kolar town)"
+  },
+  {
+    "id": "kabbaladurga",
+    "region": "Kanakapura",
+    "name": "Kabbaladurga",
+    "note": "A steep, smooth monolithic night trek ideal for watching sunrise from top ruins.",
+    "distance": "~5 km",
+    "elevation": "1,090 m",
+    "isFree": true,
+    "category": "trek",
+    "accessibility": "Moderate (80 km from city; personal vehicle best)"
+  },
+   {
+    "id": "nijagal-betta",
+    "region": "Tumakuru (Near Dobbaspet)",
+    "name": "Nijagal Betta",
+    "note": "An offbeat trail featuring ancient fort ruins and rock-cut caves along the highway.",
+    "distance": "~4 km",
+    "elevation": "1,110 m",
+    "isFree": true,
+    "category": "hidden-gem",
+    "accessibility": "Very Easy (Located right next to NH-48; park near CCD/Kamath)"
+  },
+  {
+    "id": "madhugiri-betta",
+    "region": "Tumakuru (Madhugiri)",
+    "name": "Madhugiri Betta",
+    "note": "The second-largest monolithic rock in Asia, featuring a steep climb through multiple fort gates.",
+    "distance": "~4.5 km",
+    "elevation": "1,200 m",
+    "isFree": true,
+    "category": "trek",
+    "accessibility": "Easy (Direct KSRTC buses run from Majestic to Madhugiri town)"
+  },
+    {
+    "id": "savandurga",
+    "region": "Ramanagara",
+    "name": "Savandurga",
+    "note": "One of the largest monolith hills in Asia, offering a steep, thrilling climb on bare granite rock.",
+    "distance": "~5 km",
+    "elevation": "1,226 m",
+    "isFree": true,
+    "category": "trek",
+    "accessibility": "Easy (Good road connectivity via Magadi Road or Mysore Road)"
+  },
+  {
+    "id": "muthyala-maduvu",
+    "region": "Anekal",
+    "name": "Muthyala Maduvu Falls",
+    "note": "Pearl Valley waterfall trek with dense forest and stream crossings, best in monsoon.",
+    "distance": "~3 km",
+    "elevation": "950 m",
+    "isFree": true,
+    "category": "waterfall",
+    "accessibility": "Very Easy (40km from Bangalore, auto from Anekal)"
+  },
+  {
+    "id": "thottikallu",
+    "region": "Kanakapura",
+    "name": "Thottikallu Falls - TK Falls",
+    "note": "Popular monsoon waterfall with a short forest trail and natural pool.",
+    "distance": "~2 km",
+    "elevation": "900 m",
+    "isFree": false,
+    "category": "waterfall",
+    "accessibility": "Very Easy (Off Kanakapura Road)"
+  },
+    {
+        "id": "uttari-betta",
+        "region": "Kunigal",
+        "name": "Uttari Betta",
+        "note": "A scenic day and sunrise trek that passes through village fort walls and lush grasslands.",
+        "distance": "~5 km",
+        "elevation": "1,130 m",
+        "isFree": false,
+        "category": "hidden-gem",
+        "accessibility": "Easy (Approx. 2 hours via Magadi Road)"
+    },
+    {
+        "id": "nandi-hills",
+        "region": "Chikkaballapur",
+        "name": "Nandi Hills",
+        "note": "The most famous weekend getaway, utilizing a historical stone step route.",
+        "distance": "~3 km",
+        "elevation": "1,478 m",
+        "isFree": false,
+        "category": "trek",
+        "accessibility": "Very Easy (Highly commercialised, paved roads)"
+    },
+    {
+        "id": "makalidurga",
+        "region": "Doddaballapur",
+        "name": "Makalidurga",
+        "note": "A popular lake-facing hill with an old fort structure overlooking railway tracks.",
+        "distance": "~5 km",
+        "elevation": "1,350 m",
+        "isFree": false,
+        "category": "trek",
+        "accessibility": "Easy (Can be reached by local train to Makalidurga station)"
+    },
+    {
+        "id": "antargange",
+        "region": "Kolar",
+        "name": "Antargange",
+        "note": "A unique volcanic rock hill formation famous for nighttime cave exploration.",
+        "distance": "~3 km",
+        "elevation": "1,226 m",
+        "isFree": true,
+        "category": "hidden-gem",
+        "accessibility": "Easy (Just 4 km from Kolar town)"
+    }
+]

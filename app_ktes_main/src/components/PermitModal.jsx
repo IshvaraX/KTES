@@ -11,9 +11,9 @@ const emptyMember = () => ({
 });
 
 const inputBase =
-  "h-11 w-full rounded border border-line bg-bg px-3.5 text-sm text-ink transition placeholder:text-ink-faint hover:border-ink-faint focus:border-moss focus:outline-none focus:ring-4 focus:ring-moss-light";
-const inputError = "border-danger focus:border-danger focus:ring-danger/10";
-const fieldLabel = "text-xs font-semibold text-ink-soft";
+  "h-11 w-full min-w-0 rounded-none border-2 border-[#2a513f] bg-white px-3.5 text-sm font-bold text-[#2a513f] transition placeholder:text-[#2a513f]/40 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-[#70e0bb] focus:border-[#2a513f]";
+const inputError = "!border-red-600!ring-red-200";
+const fieldLabel = "text- font-black uppercase tracking-wider text-[#2a513f]";
 
 export default function PermitModal({ onClose }) {
   const [trek, setTrek] = useState({ trekName: "", trekLocation: "", startDate: "", endDate: "", mapsLink: "" });
@@ -24,9 +24,13 @@ export default function PermitModal({ onClose }) {
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
     const onKey = (e) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
   }, [onClose]);
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export default function PermitModal({ onClose }) {
   }, [toast]);
 
   function setField(setter) {
-    return (field) => (e) => setter((prev) => ({ ...prev, [field]: e.target.value }));
+    return (field) => (e) => setter((prev) => ({...prev, [field]: e.target.value }));
   }
   const setTrekField = setField(setTrek);
   const setLeaderField = setField(setLeader);
@@ -46,26 +50,16 @@ export default function PermitModal({ onClose }) {
     if (!file) return;
     try {
       const url = await fileToURL(file);
-      if (target === "leader") setLeader((prev) => ({ ...prev, photo: url }));
-      else setMembers((prev) => prev.map((m) => (m.id === memberId ? { ...m, photo: url } : m)));
+      if (target === "leader") setLeader((prev) => ({...prev, photo: url }));
+      else setMembers((prev) => prev.map((m) => (m.id === memberId? {...m, photo: url } : m)));
     } catch (err) {
       setToast(err.message || "Could not read that photo");
     }
   }
 
   function clearPhoto(target, memberId) {
-    if (target === "leader") setLeader((prev) => ({ ...prev, photo: null }));
-    else setMembers((prev) => prev.map((m) => (m.id === memberId ? { ...m, photo: null } : m)));
-  }
-
-  function addMember() {
-    setMembers((prev) => [...prev, emptyMember()]);
-  }
-  function removeMember(id) {
-    setMembers((prev) => (prev.length > 1 ? prev.filter((m) => m.id !== id) : prev));
-  }
-  function updateMember(id, field, value) {
-    setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)));
+    if (target === "leader") setLeader((prev) => ({...prev, photo: null }));
+    else setMembers((prev) => prev.map((m) => (m.id === memberId? {...m, photo: null } : m)));
   }
 
   function validate() {
@@ -74,21 +68,19 @@ export default function PermitModal({ onClose }) {
     if (!trek.trekLocation.trim()) next.trekLocation = true;
     if (!trek.startDate) next.startDate = true;
     if (!trek.endDate) next.endDate = true;
-    if (!trek.mapsLink.trim() || !validMaps(trek.mapsLink)) next.mapsLink = true;
+    if (!trek.mapsLink.trim() ||!validMaps(trek.mapsLink)) next.mapsLink = true;
     if (!leader.name.trim()) next.leaderName = true;
     if (!leader.phone.trim()) next.leaderPhone = true;
     if (!leader.emergency.trim()) next.emergency = true;
     if (!leader.photo) next.leaderPhoto = true;
-
     members.forEach((m) => {
       if (!m.name.trim()) next[`member-name-${m.id}`] = true;
-      if (m.name.trim() && !m.photo) next[`member-photo-${m.id}`] = true;
+      if (m.name.trim() &&!m.photo) next[`member-photo-${m.id}`] = true;
     });
-
     setErrors(next);
     if (next.mapsLink) return "Add a valid Google Maps link";
     if (next.leaderPhoto) return "Upload a photo for the group leader";
-    const missingPhoto = members.find((m) => m.name.trim() && !m.photo);
+    const missingPhoto = members.find((m) => m.name.trim() &&!m.photo);
     if (missingPhoto) return `Photo missing for ${missingPhoto.name}`;
     if (Object.keys(next).length) return "Fill in every required field";
     return null;
@@ -96,10 +88,7 @@ export default function PermitModal({ onClose }) {
 
   async function handleGenerate() {
     const problem = validate();
-    if (problem) {
-      setToast(problem);
-      return;
-    }
+    if (problem) { setToast(problem); return; }
     setStatus("generating");
     try {
       await generatePermitPdf({
@@ -116,9 +105,9 @@ export default function PermitModal({ onClose }) {
       setStatus("done");
       setToast("Permits downloaded");
     } catch (err) {
-      console.error(err);
       setStatus("error");
       setToast("Couldn't generate the PDF — try again");
+      console.log(err);
     } finally {
       setTimeout(() => setStatus("idle"), 1200);
     }
@@ -126,101 +115,110 @@ export default function PermitModal({ onClose }) {
 
   return (
     <div
-className="fixed inset-0 z-[100] flex items-center justify-center bg-white p-6"
-  onMouseDown={(e) => e.target === e.currentTarget && onClose()}
->
-      <div className="relative flex max-h-[min(88vh,820px)] w-full max-w-[640px] flex-col overflow-hidden rounded-[10px] bg-surface shadow-modal" role="dialog" aria-modal="true" aria-labelledby="permit-modal-title">
-        <div className="flex items-center justify-between border-b border-line px-6 py-5">
-          <h2 id="permit-modal-title" className="font-display text-2xl font-bold uppercase text-ink">Register your trek</h2>
-          <button onClick={onClose} aria-label="Close" className="flex h-[34px] w-[34px] items-center justify-center rounded-full text-xl leading-none text-ink-soft hover:bg-surface-alt">×</button>
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-[#2a513f]/80 backdrop-blur-sm p-0 sm:p-4"
+      onMouseDown={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="relative flex w-full max-w- flex-col overflow-hidden border-t-4 sm:border-4 border-[#2a513f] bg-[#cef79f] shadow-[0_-8px_0_#2a513f] sm:shadow-[8px_8px_0px_0px_#2a513f] h-[80dvh] sm:max-h- rounded-t- sm:rounded-none" role="dialog" aria-modal="true">
+
+        <div className="h-2 w-full flex shrink-0">
+          <div className="flex-1 bg-[#83ba36]"></div>
+          <div className="flex-1 bg-[#70e0bb]"></div>
+          <div className="flex-1 bg-[#378e8e]"></div>
+          <div className="flex-1 bg-[#2a513f]"></div>
         </div>
 
-        <div className="flex flex-col gap-6 overflow-y-auto px-6 py-5">
-          <section>
-            <h3 className="mb-3.5 font-mono text-xs uppercase tracking-[0.1em] text-moss">Trek details</h3>
+        <div className="flex shrink-0 items-center justify-between border-b-4 border-[#2a513f] bg-white px-4 sm:px-6 py-4">
+          <h2 className="text-lg sm:text-2xl font-black uppercase tracking-tight text-[#2a513f]">Register your trek</h2>
+          <button onClick={onClose} aria-label="Close" className="flex h-8 w-8 shrink-0 items-center justify-center border-2 border-[#2a513f] bg-[#cef79f] text-lg font-black text-[#2a513f] hover:bg-[#70e0bb]">×</button>
+        </div>
+
+        {/* SCROLLABLE CONTENT */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 bg-[#cef79f]">
+
+          <section className="border-4 border-[#2a513f] bg-white p-4 shadow-[4px_4px_0px_0px_#2a513f]">
+            <h3 className="mb-3 inline-block border-2 border-[#2a513f] bg-[#83ba36] px-2 py-1 text- font-black uppercase tracking-wider text-[#2a513f]">Trek details</h3>
             <div className="flex flex-col gap-3">
-              <input className={`${inputBase} ${errors.trekName ? inputError : ""}`} placeholder="Trek name *" value={trek.trekName} onChange={setTrekField("trekName")} />
-              <input className={`${inputBase} ${errors.trekLocation ? inputError : ""}`} placeholder="Trek location *" value={trek.trekLocation} onChange={setTrekField("trekLocation")} />
-              <div className="grid grid-cols-2 gap-3.5">
-                <div className="flex flex-col gap-1.5">
+              <input className={`${inputBase} ${errors.trekName? inputError : ""}`} placeholder="Trek name *" value={trek.trekName} onChange={setTrekField("trekName")} />
+              <input className={`${inputBase} ${errors.trekLocation? inputError : ""}`} placeholder="Trek location *" value={trek.trekLocation} onChange={setTrekField("trekLocation")} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1.5 min-w-0">
                   <label className={fieldLabel}>Start date *</label>
-                  <input type="date" className={`${inputBase} ${errors.startDate ? inputError : ""}`} min={today} value={trek.startDate} onChange={setTrekField("startDate")} />
+                  <input type="date" className={`${inputBase} ${errors.startDate? inputError : ""}`} min={today} value={trek.startDate} onChange={setTrekField("startDate")} />
                 </div>
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-1.5 min-w-0">
                   <label className={fieldLabel}>End date *</label>
-                  <input type="date" className={`${inputBase} ${errors.endDate ? inputError : ""}`} min={trek.startDate || today} value={trek.endDate} onChange={setTrekField("endDate")} />
+                  <input type="date" className={`${inputBase} ${errors.endDate? inputError : ""}`} min={trek.startDate || today} value={trek.endDate} onChange={setTrekField("endDate")} />
                 </div>
               </div>
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1.5 min-w-0">
                 <label className={fieldLabel}>Google Maps link *</label>
-                <input type="url" className={`${inputBase} ${errors.mapsLink ? inputError : ""}`} placeholder="https://maps.app.google.com/..." value={trek.mapsLink} onChange={setTrekField("mapsLink")} />
-                <span className="text-xs text-ink-faint">Paste the share link from Google Maps</span>
+                <input type="url" className={`${inputBase} ${errors.mapsLink? inputError : ""}`} placeholder="https://maps.app.google.com/..." value={trek.mapsLink} onChange={setTrekField("mapsLink")} />
+                <span className="text- font-bold uppercase tracking-wider text-[#378e8e]">Paste the share link from Google Maps</span>
               </div>
             </div>
           </section>
 
-          <section>
-            <h3 className="mb-3.5 font-mono text-xs uppercase tracking-[0.1em] text-moss">Group leader</h3>
-            <div className="grid grid-cols-[auto_1fr_1fr] items-end gap-3.5">
+          <section className="border-4 border-[#2a513f] bg-white p-4 shadow-[4px_4px_0px_0px_#2a513f]">
+            <h3 className="mb-3 inline-block border-2 border-[#2a513f] bg-[#70e0bb] px-2 py-1 text- font-black uppercase tracking-wider text-[#2a513f]">Group leader</h3>
+            {/* RESPONSIVE: stack on mobile */}
+            <div className="flex flex-col sm:grid sm:grid-cols-[64px_1fr_1fr] gap-3 items-start sm:items-end">
               <PhotoUpload hasPhoto={!!leader.photo} photo={leader.photo} error={errors.leaderPhoto} onChange={(e) => handlePhoto(e, "leader")} onClear={() => clearPhoto("leader")} />
-              <div className="flex flex-col gap-1.5">
+              <div className="flex w-full flex-col gap-1.5 min-w-0">
                 <label className={fieldLabel}>Name *</label>
-                <input className={`${inputBase} ${errors.leaderName ? inputError : ""}`} value={leader.name} onChange={setLeaderField("name")} />
+                <input className={`${inputBase} ${errors.leaderName? inputError : ""}`} value={leader.name} onChange={setLeaderField("name")} />
               </div>
-              <div className="flex flex-col gap-1.5">
+              <div className="flex w-full flex-col gap-1.5 min-w-0">
                 <label className={fieldLabel}>Phone *</label>
-                <input type="tel" className={`${inputBase} ${errors.leaderPhone ? inputError : ""}`} value={leader.phone} onChange={setLeaderField("phone")} />
+                <input type="tel" className={`${inputBase} ${errors.leaderPhone? inputError : ""}`} value={leader.phone} onChange={setLeaderField("phone")} />
               </div>
             </div>
-            <div className="mt-3 flex flex-col gap-1.5">
+            <div className="mt-3 flex flex-col gap-1.5 min-w-0">
               <label className={fieldLabel}>Emergency contact *</label>
-              <input type="tel" className={`${inputBase} ${errors.emergency ? inputError : ""}`} value={leader.emergency} onChange={setLeaderField("emergency")} />
+              <input type="tel" className={`${inputBase} ${errors.emergency? inputError : ""}`} value={leader.emergency} onChange={setLeaderField("emergency")} />
             </div>
           </section>
 
-          <section>
-            <h3 className="mb-3.5 font-mono text-xs uppercase tracking-[0.1em] text-moss">Group members</h3>
-            <div className="mb-3.5 flex flex-col gap-3">
+          <section className="border-4 border-[#2a513f] bg-white p-4 shadow-[4px_4px_0px_0px_#2a513f]">
+            <h3 className="mb-3 inline-block border-2 border-[#2a513f] bg-[#378e8e] px-2 py-1 text- font-black uppercase tracking-wider text-white">Group members</h3>
+            <div className="mb-3 flex flex-col gap-3">
               {members.map((m) => (
-                <div key={m.id} className="grid grid-cols-[56px_1fr_1fr_auto] items-end gap-3 rounded border border-line p-3.5">
-                  <PhotoUpload compact hasPhoto={!!m.photo} photo={m.photo} error={errors[`member-photo-${m.id}`]} onChange={(e) => handlePhoto(e, "member", m.id)} onClear={() => clearPhoto("member", m.id)} />
-                  <div className="flex flex-col gap-1.5">
+                <div key={m.id} className="flex flex-col sm:grid sm:grid-cols-[64px_1fr_1fr_40px] gap-3 border-2 border-[#2a513f] bg-[#cef79f]/50 p-3">
+                  <PhotoUpload hasPhoto={!!m.photo} photo={m.photo} error={errors[`member-photo-${m.id}`]} onChange={(e) => handlePhoto(e, "member", m.id)} onClear={() => clearPhoto("member", m.id)} />
+                  <div className="flex w-full flex-col gap-1.5 min-w-0">
                     <label className={fieldLabel}>Name *</label>
-                    <input className={`${inputBase} ${errors[`member-name-${m.id}`] ? inputError : ""}`} placeholder="Name" value={m.name} onChange={(e) => updateMember(m.id, "name", e.target.value)} />
+                    <input className={`${inputBase} ${errors[`member-name-${m.id}`]? inputError : ""}`} placeholder="Name" value={m.name} onChange={(e) => { const v=e.target.value; setMembers(p=>p.map(x=>x.id===m.id?{...x,name:v}:x)); }} />
                   </div>
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex w-full flex-col gap-1.5 min-w-0">
                     <label className={fieldLabel}>Phone</label>
-                    <input type="tel" className={inputBase} placeholder="Phone" value={m.phone} onChange={(e) => updateMember(m.id, "phone", e.target.value)} />
+                    <input type="tel" className={inputBase} placeholder="Phone" value={m.phone} onChange={(e)=>{ const v=e.target.value; setMembers(p=>p.map(x=>x.id===m.id?{...x,phone:v}:x)); }} />
                   </div>
-                  <button onClick={() => removeMember(m.id)} disabled={members.length === 1} aria-label="Remove member" title="Remove member" className="flex h-[34px] w-[34px] items-center justify-center rounded text-danger hover:bg-surface-alt disabled:cursor-not-allowed disabled:text-ink-faint">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg>
-                  </button>
+                  <button onClick={() => setMembers(p=>p.length>1?p.filter(x=>x.id!==m.id):p)} disabled={members.length===1} className="h-11 w-full sm:w-10 border-2 border-[#2a513f] bg-white text-[#2a513f] hover:bg-red-100 disabled:opacity-30 flex items-center justify-center">✕</button>
                 </div>
               ))}
             </div>
-            <button onClick={addMember} type="button" className="h-[42px] rounded border border-ink px-4 text-sm font-bold text-ink hover:bg-surface-alt">+ Add member</button>
+            <button onClick={() => setMembers(p=>[...p, emptyMember()])} type="button" className="h-11 w-full sm:w-auto border-4 border-[#2a513f] bg-white px-4 text-xs font-black uppercase tracking-wider text-[#2a513f] shadow-[3px_3px_0px_0px_#2a513f] hover:bg-[#70e0bb]">+ Add member</button>
           </section>
         </div>
 
-        <div className="border-t border-line px-6 py-5">
-          <button onClick={handleGenerate} disabled={status === "generating"} className="flex h-[46px] w-full items-center justify-center gap-2 rounded bg-accent text-sm font-bold text-[#fff8f2] transition hover:bg-accent-dark disabled:opacity-70">
-            {status === "generating" ? (<><span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/35 border-t-white" /> Generating…</>) : "Download permits"}
+        <div className="shrink-0 border-t-4 border-[#2a513f] bg-white p-4 sm:p-6">
+          <button onClick={handleGenerate} disabled={status==="generating"} className="flex h- w-full items-center justify-center gap-2 border-4 border-[#2a513f] bg-[#83ba36] text-sm font-black uppercase tracking-wider text-[#2a513f] shadow-[4px_4px_0px_0px_#2a513f] hover:translate-x- hover:translate-y- hover:shadow-[2px_2px_0px_0px_#2a513f] disabled:opacity-70">
+            {status==="generating"? "Generating..." : "Download permits"}
           </button>
         </div>
 
-        {toast && <div className="absolute bottom-[88px] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-[18px] py-2.5 text-[13px] text-bg shadow-card">{toast}</div>}
+        {toast && <div className="pointer-events-none absolute bottom-24 left-1/2 -translate-x-1/2 max-w-[90%] whitespace-normal text-center border-2 border-[#2a513f] bg-[#2a513f] px-5 py-2.5 text- font-bold uppercase text-[#cef79f] shadow-[4px_4px_0px_#2a513f]">{toast}</div>}
       </div>
     </div>
   );
 }
 
-function PhotoUpload({ hasPhoto, photo, error, onChange, onClear, compact }) {
+function PhotoUpload({ hasPhoto, photo, error, onChange, onClear }) {
   const inputRef = useRef(null);
   return (
-    <div onClick={() => inputRef.current?.click()} className={`relative flex h-[70px] w-14 flex-shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded border text-xl text-ink-faint ${hasPhoto ? "border-solid border-moss bg-surface-alt" : "border-dashed border-line bg-surface-alt"} ${error ? "!border-solid !border-danger" : ""}`}>
-      {hasPhoto ? <img src={photo} alt="" className="h-full w-full object-cover" /> : <span>+</span>}
-      <input ref={inputRef} type="file" accept="image/*" hidden onChange={(e) => { onChange(e); e.target.value = ""; }} />
-      {hasPhoto && <button onClick={(e) => { e.stopPropagation(); onClear(); }} aria-label="Remove photo" className="absolute right-1 top-1 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-danger text-[12px] leading-none text-white">×</button>}
+    <div onClick={() => inputRef.current?.click()} className={`relative flex h- w-16 shrink-0 cursor-pointer items-center justify-center overflow-hidden border-2 text-xl font-black ${hasPhoto? "border-[#2a513f] bg-white" : "border-dashed border-[#2a513f] bg-[#cef79f]"} ${error? "!border-red-600!bg-red-50" : ""}`}>
+      {hasPhoto? <img src={photo} alt="" className="h-full w-full object-cover" /> : <span className="text-[#2a513f]">+</span>}
+      <input ref={inputRef} type="file" accept="image/*" hidden onChange={(e) => { onChange(e); e.target.value=""; }} />
+      {hasPhoto && <button onClick={(e) => { e.stopPropagation(); onClear(); }} className="absolute right-0.5 top-0.5 flex h-4 w-4 items-center justify-center bg-[#2a513f] text- text-white">×</button>}
     </div>
   );
 }
