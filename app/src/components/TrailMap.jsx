@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BANGALORE, loadMapSdk } from "./lib/maptiler";
+import { attachSpotPicker } from "./lib/mapPick";
 
 const RINGS_KM = [50, 100];
 
@@ -13,6 +14,21 @@ function ringFeature(km) {
   }
   return { type: "Feature", properties: { km }, geometry: { type: "LineString", coordinates: pts } };
 }
+
+// Neighbours to the east would collide with a right-hand label, so move it left or below
+function labelSide(t, others) {
+  const close = (o, dir) => o !== t && Math.abs(o.lat - t.lat) < 0.1 && dir * (o.lng - t.lng) > 0 && Math.abs(o.lng - t.lng) < 0.6;
+  const east = others.some((o) => close(o, 1));
+  const west = others.some((o) => close(o, -1));
+  if (east && west) return "below";
+  return east ? "left" : "right";
+}
+
+const PLACEMENT = {
+  right: { anchor: "left", offset: [-11, 0] },
+  left: { anchor: "right", offset: [11, 0] },
+  below: { anchor: "top", offset: [0, -11] },
+};
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -69,6 +85,7 @@ export default function TrailMap({ allTrails, visibleIds, selectedId, onSelect, 
           style: sdk.MapStyle.LANDSCAPE,
           bounds,
           fitBoundsOptions: { padding: 56 },
+          pitch: 45,
           projection: "mercator",
           space: false,
           halo: false,
@@ -80,6 +97,7 @@ export default function TrailMap({ allTrails, visibleIds, selectedId, onSelect, 
           logSDKVersion: false,
         });
         mapRef.current = map;
+        attachSpotPicker(map, sdk, () => handlers.current.onPlan);
 
         map.on("load", () => {
           map.addSource("rings", { type: "geojson", data: { type: "FeatureCollection", features: RINGS_KM.map(ringFeature) } });
@@ -87,7 +105,7 @@ export default function TrailMap({ allTrails, visibleIds, selectedId, onSelect, 
             id: "rings",
             type: "line",
             source: "rings",
-            paint: { "line-color": "#173a2c", "line-width": 1.25, "line-opacity": 0.55, "line-dasharray": [2, 3] },
+            paint: { "line-color": "#173317", "line-width": 1.25, "line-opacity": 0.4, "line-dasharray": [2, 3] },
           });
           setState("ready");
         });
@@ -103,8 +121,10 @@ export default function TrailMap({ allTrails, visibleIds, selectedId, onSelect, 
         city.append(el("span", "city-pin-dot"), el("span", "city-pin-label", "Bangalore"));
         new sdk.Marker({ element: city, anchor: "left", offset: [-6, 0] }).setLngLat([BANGALORE.lng, BANGALORE.lat]).addTo(map);
 
+        const points = [...allTrails, BANGALORE];
         allTrails.forEach((t) => {
-          const btn = el("button", `trail-pin ${t.category === "waterfall" ? "is-fall" : "is-hill"}`);
+          const side = labelSide(t, points);
+          const btn = el("button", `trail-pin label-${side} ${t.category === "waterfall" ? "is-fall" : "is-hill"}`);
           btn.type = "button";
           btn.setAttribute("aria-label", `${t.name}, ${t.elevation}. Show details on map`);
           btn.append(el("span", "trail-pin-mark"), el("span", "trail-pin-label", t.name));
@@ -112,7 +132,7 @@ export default function TrailMap({ allTrails, visibleIds, selectedId, onSelect, 
             e.stopPropagation();
             handlers.current.onSelect(t.id);
           });
-          const marker = new sdk.Marker({ element: btn, anchor: "left", offset: [-7, 0] }).setLngLat([t.lng, t.lat]).addTo(map);
+          const marker = new sdk.Marker({ element: btn, ...PLACEMENT[side] }).setLngLat([t.lng, t.lat]).addTo(map);
           markers.current.set(t.id, marker);
         });
       } catch (err) {
@@ -172,7 +192,7 @@ export default function TrailMap({ allTrails, visibleIds, selectedId, onSelect, 
   }, [selectedId, allTrails, state]);
 
   return (
-    <div className="relative h-[26rem] overflow-hidden rounded-[4px] bg-mist sm:h-[32rem]">
+    <div className="relative h-[26rem] overflow-hidden rounded-[24px] bg-paper sm:h-[32rem]">
       <div ref={container} className="h-full w-full" />
       {state !== "ready" && (
         <p className="pointer-events-none absolute inset-0 flex items-center justify-center text-granite" role="status">

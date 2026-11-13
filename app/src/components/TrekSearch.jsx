@@ -97,7 +97,7 @@ const TrekSearch = forwardRef(function TrekSearch({ value, onChange, onPick, ...
         <ul
           id={listId}
           role="listbox"
-          className="absolute inset-x-0 top-full z-20 mt-1 max-h-72 overflow-y-auto rounded-[8px] border border-shola/15 bg-white py-1 shadow-[0_16px_40px_-16px_rgba(23,58,44,0.45)]"
+          className="absolute inset-x-0 top-full z-20 mt-1 max-h-72 overflow-y-auto rounded-[14px] border border-shola/15 bg-paper py-1 shadow-[0_16px_40px_-16px_rgba(23,51,23,0.35)]"
         >
           {options.map((o, i) => (
             <li

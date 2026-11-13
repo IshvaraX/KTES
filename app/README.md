@@ -1,5 +1,15 @@
 # React + Vite
 
+## KTES setup
+
+Maps, place search and the "near you" search use [MapTiler](https://www.maptiler.com/). Add your key to `app/.env` (it's gitignored):
+
+```
+MAPTILER_API=your_key_here
+```
+
+Vite exposes `MAPTILER_*` variables to the browser (see `envPrefix` in `vite.config.js`), so the key ships in the site's JavaScript. In the MapTiler dashboard, limit the key to your site's domains. Without a key the site still works, but maps and location features are hidden.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

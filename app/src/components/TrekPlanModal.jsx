@@ -47,9 +47,9 @@ function PhotoUpload({ photo, error, label, onChange, onClear }) {
         type="button"
         onClick={() => inputRef.current?.click()}
         aria-label={photo ? `Change photo for ${label}` : `Add photo for ${label}`}
-        className={`flex h-[5.5rem] w-[4.25rem] items-center justify-center overflow-hidden rounded-[6px] text-center text-xs leading-tight font-medium ${
+        className={`flex h-[5.5rem] w-[4.25rem] items-center justify-center overflow-hidden rounded-[14px] text-center text-xs leading-tight font-medium ${
           photo
-            ? "bg-white"
+            ? "bg-deep"
             : `border-[1.5px] border-dashed bg-mist/60 text-granite hover:bg-mist ${error ? "border-alert text-alert" : "border-shola/40"}`
         }`}
       >
@@ -89,7 +89,7 @@ function Section({ title, aside, children }) {
 export default function TrekPlanModal({ trail, onClose }) {
   const [trek, setTrek] = useState(() => ({
     trekName: trail?.name ?? "",
-    trekLocation: trail ? `${trail.region}, Karnataka` : "",
+    trekLocation: trail?.region ? `${trail.region}, Karnataka` : "",
     startDate: "",
     endDate: "",
     mapsLink: trail ? mapsSearchLink(trail) : "",
@@ -124,6 +124,16 @@ export default function TrekPlanModal({ trail, onClose }) {
     const t = setTimeout(() => setToast(null), 3600);
     return () => clearTimeout(t);
   }, [toast]);
+
+  // Places found near the user have no curated region, so look one up
+  useEffect(() => {
+    if (!trail || trail.region) return;
+    const ctrl = new AbortController();
+    placeNameAt(trail, { signal: ctrl.signal })
+      .then((name) => name && setTrek((prev) => (prev.trekLocation ? prev : { ...prev, trekLocation: name })))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, [trail]);
 
   const setTrekField = (field) => (e) => setTrek((prev) => ({ ...prev, [field]: e.target.value }));
   const setLeaderField = (field) => (e) => setLeader((prev) => ({ ...prev, [field]: e.target.value }));
@@ -265,14 +275,14 @@ export default function TrekPlanModal({ trail, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-end justify-center bg-shola/70 backdrop-blur-[2px] sm:items-center sm:p-6"
+      className="fixed inset-0 z-[100] flex items-end justify-center bg-[#173317]/45 backdrop-blur-[3px] sm:items-center sm:p-6"
       onMouseDown={(e) => e.target === e.currentTarget && onClose()}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="sheet-in relative flex h-[94dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-[14px] bg-paper shadow-[0_30px_80px_-20px_rgba(23,58,44,0.55)] sm:h-auto sm:max-h-[90dvh] sm:rounded-[10px]"
+        className="sheet-in relative flex h-[94dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-[28px] bg-paper shadow-[0_30px_80px_-24px_rgba(23,51,23,0.45)] sm:h-auto sm:max-h-[90dvh] sm:rounded-[28px]"
       >
         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-shola/12 px-5 pt-6 pb-5 sm:px-8">
           <div>
@@ -306,7 +316,7 @@ export default function TrekPlanModal({ trail, onClose }) {
           noValidate
         >
           <Section title="The trek">
-            <p className="mb-5 rounded-[8px] bg-mist/70 px-4 py-3 text-[0.9375rem] leading-relaxed">
+            <p className="mb-5 rounded-[16px] bg-mist/70 px-4 py-3 text-[0.9375rem] leading-relaxed">
               If this trek needs a forest permit, book it on{" "}
               <a href={OFFICIAL_BOOKING_URL} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-2">
                 Aranya Vihaara
@@ -358,7 +368,7 @@ export default function TrekPlanModal({ trail, onClose }) {
                       type="button"
                       onClick={locateMe}
                       disabled={locating}
-                      className="text-sm font-medium text-stamp underline underline-offset-2 hover:text-stamp-2 disabled:cursor-progress disabled:opacity-60"
+                      className="text-sm font-medium text-action underline underline-offset-2 hover:text-action-2 disabled:cursor-progress disabled:opacity-60"
                     >
                       {locating ? "Finding your location\u2026" : "Use my current location"}
                     </button>
@@ -371,7 +381,7 @@ export default function TrekPlanModal({ trail, onClose }) {
                       </p>
                     </>
                   ) : (
-                    <div className="flex min-h-28 items-center justify-center rounded-[6px] border-[1.5px] border-dashed border-shola/30 px-4 py-5 text-center text-sm text-granite">
+                    <div className="flex min-h-28 items-center justify-center rounded-[14px] border-[1.5px] border-dashed border-shola/30 px-4 py-5 text-center text-sm text-granite">
                       Pick a trek from the suggestions, or use your current location, to drop a pin.
                     </div>
                   )}
@@ -440,7 +450,7 @@ export default function TrekPlanModal({ trail, onClose }) {
           >
             <ul className="flex flex-col gap-5">
               {members.map((m, i) => (
-                <li key={m.id} className="flex flex-col gap-4 rounded-[8px] bg-mist/55 p-4 sm:flex-row sm:items-start">
+                <li key={m.id} className="flex flex-col gap-4 rounded-[16px] bg-mist/55 p-4 sm:flex-row sm:items-start">
                   <PhotoUpload
                     photo={m.photo}
                     error={errors[`member-photo-${m.id}`]}
@@ -481,7 +491,7 @@ export default function TrekPlanModal({ trail, onClose }) {
           <p className="text-granite" aria-live="polite">
             {pageCount === 1 ? "1 trekker page" : `${pageCount} trekker pages`}, plus a cover sheet
           </p>
-          <button type="submit" form="plan-form" disabled={status === "generating"} className="btn btn-stamp min-h-12 px-7 text-base">
+          <button type="submit" form="plan-form" disabled={status === "generating"} className="btn btn-action min-h-12 px-7 text-base">
             {status === "generating" ? "Making your trek plan…" : "Download trek plan"}
           </button>
         </div>
@@ -491,7 +501,7 @@ export default function TrekPlanModal({ trail, onClose }) {
           aria-live="polite"
           className={`pointer-events-none absolute inset-x-0 bottom-28 flex justify-center px-5 transition-opacity sm:bottom-24 ${toast ? "opacity-100" : "opacity-0"}`}
         >
-          {toast && <p className="max-w-md rounded-[8px] bg-shola px-4 py-2.5 text-center text-[0.9375rem] text-paper shadow-lg">{toast}</p>}
+          {toast && <p className="max-w-md rounded-[16px] bg-shola px-4 py-2.5 text-center text-[0.9375rem] text-paper shadow-lg">{toast}</p>}
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ export default function PinMap({ pin, onMove }) {
   }, [pin]);
 
   return (
-    <div className="relative h-56 overflow-hidden rounded-[6px] bg-mist">
+    <div className="relative h-56 overflow-hidden rounded-[16px] bg-mist">
       <div ref={container} className="h-full w-full" />
       {failed && (
         <p className="absolute inset-0 flex items-center justify-center p-4 text-center text-sm text-granite">

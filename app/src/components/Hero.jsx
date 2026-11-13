@@ -50,6 +50,9 @@ function placeLabels(hills) {
   });
 }
 
+// A Kaveri-like river winding through the ground in front of the hills
+const RIVER = `M -10 ${H - 6} C 140 ${H + 2}, 300 ${H - 22}, 500 ${H - 12} S 820 ${H + 1}, 980 ${H - 15} S 1140 ${H - 2}, ${W + 10} ${H - 10}`;
+
 const SHAPES = HILLS.map((trail, i) => ({ trail, name: trail.name, ...hillGeometry(trail, i, HILLS.length) }));
 const LIFTS = placeLabels(SHAPES);
 
@@ -71,7 +74,7 @@ function Skyline() {
       >
         <path
           d={`M0 ${H} L0 ${yFor(930)} C 180 ${yFor(990)}, 300 ${yFor(900)}, 460 ${yFor(960)} S 760 ${yFor(1010)}, 900 ${yFor(940)} S 1120 ${yFor(980)}, ${W} ${yFor(920)} L ${W} ${H} Z`}
-          className="fill-lichen/45"
+          className="fill-fern/25"
         />
 
         {CONTOURS.map((m) => (
@@ -93,7 +96,7 @@ function Skyline() {
               aria-label={`${trail.name}, ${trail.elevation}`}
               style={{ "--i": i }}
             >
-              <path d={d} className="hill fill-shola stroke-mist transition-[fill] duration-200 group-hover:fill-shola-2 group-focus-visible:fill-stamp" strokeWidth="1.5" />
+              <path d={d} className="hill fill-ridge stroke-mist transition-[fill] duration-200 group-hover:fill-ridge-2 group-focus-visible:fill-forest" strokeWidth="1.5" />
               <g className="peak-label" aria-hidden="true">
                 {lift > 0 && (
                   <line x1={apex} x2={apex} y1={top - 6} y2={top - lift + 4} className="stroke-shola/40" />
@@ -117,37 +120,94 @@ function Skyline() {
 
         <path
           d={`M0 ${H + 10} L0 ${H - 26} C 200 ${H - 14}, 330 ${H - 34}, 520 ${H - 20} S 860 ${H - 12}, 1000 ${H - 26} S 1140 ${H - 18}, ${W} ${H - 24} L ${W} ${H + 10} L 0 ${H + 10} Z`}
-          className="fill-shola"
+          className="fill-deep"
         />
+        <g aria-hidden="true" fill="none" strokeLinecap="round">
+          <path d={RIVER} className="stroke-sky" strokeWidth="11" />
+          <path d={RIVER} transform="translate(0 -2)" className="stroke-white/55" strokeWidth="2" />
+        </g>
       </svg>
     </div>
   );
 }
 
-export default function Hero({ onOpenPlan }) {
+const CLOUD = "M20 46a15 15 0 0 1 3-29 21 21 0 0 1 39-9 17 17 0 0 1 30 7 14 14 0 0 1 14 31Z";
+
+function Cloud({ className }) {
   return (
-    <section id="top" className="relative overflow-hidden bg-mist pt-12 sm:pt-16">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-end lg:gap-16">
+    <svg viewBox="0 0 120 52" className={`pointer-events-none absolute ${className}`} aria-hidden="true">
+      <path d={CLOUD} transform="translate(4 4)" className="fill-sky/25" />
+      <path d={CLOUD} className="fill-white" />
+    </svg>
+  );
+}
+
+const STEPS = [
+  { title: "Pick a trail", detail: "Around Bangalore, or one near you" },
+  { title: "Add your group", detail: "Names, phones and a photo each" },
+  { title: "Download the plan", detail: "One PDF with a map QR on every page" },
+];
+
+// Blazes switchback down the footpath; x is the blaze's left offset, tilt is its hand-painted angle
+const BLAZES = [
+  { x: 0, tilt: -4 },
+  { x: 44, tilt: 3 },
+  { x: 0, tilt: -2 },
+];
+const ROW = 84;
+
+function TrailSteps() {
+  const path = `M 20 22 C 20 ${ROW * 0.55}, 64 ${ROW * 0.45}, 64 ${ROW + 22} S 20 ${ROW * 1.55 + 22}, 20 ${ROW * 2 + 22}`;
+  return (
+    <div className="relative">
+      <h2 className="sr-only">How it works</h2>
+      <svg
+        className="pointer-events-none absolute top-0 left-0"
+        width="90"
+        height={ROW * 2 + 44}
+        aria-hidden="true"
+      >
+        <path d={path} fill="none" className="stroke-earth/55" strokeWidth="2.5" strokeDasharray="1 7" strokeLinecap="round" />
+      </svg>
+      <ol className="relative">
+        {STEPS.map((step, i) => (
+          <li key={step.title} className="relative flex items-start" style={{ height: i < STEPS.length - 1 ? ROW : "auto" }}>
+            <span
+              className="trail-blaze"
+              style={{ marginLeft: BLAZES[i].x, transform: `rotate(${BLAZES[i].tilt}deg)` }}
+              aria-hidden="true"
+            >
+              {i + 1}
+            </span>
+            <span className="ml-4 pt-0.5">
+              <span className="block text-xl leading-tight font-semibold">
+                <span className="sr-only">Step {i + 1}: </span>
+                {step.title}
+              </span>
+              <span className="mt-1 block text-[0.9375rem] text-granite">{step.detail}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+export default function Hero() {
+  return (
+    <section id="top" className="hero-sky relative overflow-hidden pt-10 sm:pt-14">
+      <Cloud className="top-3 right-[2%] w-32 sm:w-40 lg:right-[4%]" />
+      <Cloud className="top-[50%] left-[3%] hidden w-36 opacity-90 lg:block" />
+      <div className="relative mx-auto grid max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16">
         <h1 className="display max-w-[16ch] text-[clamp(3.4rem,8vw,6.75rem)] text-shola">
           Climb the hills around Bangalore.
         </h1>
-        <div className="flex flex-col gap-6 lg:pb-2">
-          <p className="max-w-[40ch] text-lg leading-relaxed text-granite">
-            Pick a betta, fort or waterfall within a day's drive. Then make a trek plan for your whole group, with a map QR on
-            every page.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <button type="button" onClick={onOpenPlan} className="btn btn-stamp">
-              Make a trek plan
-            </button>
-            <a href="#trails" className="btn btn-quiet">
-              Browse trails
-            </a>
-          </div>
+        <div>
+          <TrailSteps />
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="relative mt-8">
         <Skyline />
       </div>
     </section>
