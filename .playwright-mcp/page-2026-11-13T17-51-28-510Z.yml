@@ -1,0 +1,438 @@
+- generic [ref=f9e2]:
+  - banner [ref=f9e3]:
+    - generic [ref=f9e4]:
+      - link "KTES home" [ref=f9e5] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=f9e8]: KTES
+      - navigation "Main" [ref=f9e9]:
+        - link "Trails" [ref=f9e10] [cursor=pointer]:
+          - /url: "#trails"
+        - link "How trek plans work" [ref=f9e11] [cursor=pointer]:
+          - /url: "#how"
+        - button "Make a trek plan" [ref=f9e12]
+  - main [ref=f9e13]:
+    - generic [ref=f9e14]:
+      - generic [ref=f9e15]:
+        - heading "Climb the hills around Bangalore." [level=1] [ref=f9e16]
+        - generic [ref=f9e17]:
+          - paragraph [ref=f9e18]: Pick a betta, fort or waterfall within a day's drive. Then make a trek plan for your whole group, with a map QR on every page.
+          - generic [ref=f9e19]:
+            - button "Make a trek plan" [ref=f9e20]
+            - link "Browse trails" [ref=f9e21] [cursor=pointer]:
+              - /url: "#trails"
+      - 'group "Hill profile: summit elevations of the trails around Bangalore, drawn to scale" [ref=f9e24]':
+        - generic [ref=f9e26]: 1,000 m
+        - generic [ref=f9e28]: 1,200 m
+        - generic [ref=f9e30]: 1,400 m
+        - link "Nijagal Betta, 1,110 m" [ref=f9e32] [cursor=pointer]:
+          - /url: "#trail-nijagal-betta"
+          - generic [aria-hidden] [ref=f9e34]:
+            - generic [ref=f9e35]: Nijagal Betta
+            - generic [ref=f9e36]: 1,110 m
+        - link "Madhugiri Betta, 1,200 m" [ref=f9e37] [cursor=pointer]:
+          - /url: "#trail-madhugiri-betta"
+          - generic [aria-hidden] [ref=f9e39]:
+            - generic [ref=f9e40]: Madhugiri Betta
+            - generic [ref=f9e41]: 1,200 m
+        - link "Savandurga, 1,226 m" [ref=f9e42] [cursor=pointer]:
+          - /url: "#trail-savandurga"
+          - generic [aria-hidden] [ref=f9e44]:
+            - generic [ref=f9e45]: Savandurga
+            - generic [ref=f9e46]: 1,226 m
+        - link "Uttari Betta, 1,130 m" [ref=f9e47] [cursor=pointer]:
+          - /url: "#trail-uttari-betta"
+          - generic [aria-hidden] [ref=f9e49]:
+            - generic [ref=f9e50]: Uttari Betta
+            - generic [ref=f9e51]: 1,130 m
+        - link "Nandi Hills, 1,478 m" [ref=f9e52] [cursor=pointer]:
+          - /url: "#trail-nandi-hills"
+          - generic [aria-hidden] [ref=f9e54]:
+            - generic [ref=f9e55]: Nandi Hills
+            - generic [ref=f9e56]: 1,478 m
+        - link "Makalidurga, 1,350 m" [ref=f9e57] [cursor=pointer]:
+          - /url: "#trail-makalidurga"
+          - generic [aria-hidden] [ref=f9e59]:
+            - generic [ref=f9e60]: Makalidurga
+            - generic [ref=f9e61]: 1,350 m
+        - link "Antargange, 1,226 m" [ref=f9e62] [cursor=pointer]:
+          - /url: "#trail-antargange"
+          - generic [aria-hidden] [ref=f9e64]:
+            - generic [ref=f9e65]: Antargange
+            - generic [ref=f9e66]: 1,226 m
+        - link "Kabbaladurga, 1,090 m" [ref=f9e67] [cursor=pointer]:
+          - /url: "#trail-kabbaladurga"
+          - generic [aria-hidden] [ref=f9e69]:
+            - generic [ref=f9e70]: Kabbaladurga
+            - generic [ref=f9e71]: 1,090 m
+    - generic [ref=f9e74]:
+      - generic [ref=f9e75]:
+        - generic [ref=f9e76]:
+          - heading "Trails within a day's drive" [level=2] [ref=f9e77]
+          - paragraph [ref=f9e78]: From roadside forts to full morning climbs. Elevations are summit heights above sea level.
+        - generic [ref=f9e79]:
+          - group "Type" [ref=f9e80]:
+            - generic [ref=f9e82]:
+              - button "All10" [pressed] [ref=f9e83]
+              - button "Treks5" [ref=f9e84]
+              - button "Waterfalls2" [ref=f9e85]
+              - button "Hidden gems3" [ref=f9e86]
+          - group "Entry" [ref=f9e87]:
+            - generic [ref=f9e89]:
+              - button "Any" [pressed] [ref=f9e90]
+              - button "Free" [ref=f9e91]
+              - button "Ticketed" [ref=f9e92]
+      - figure "Rings mark 50 and 100 km from central Bangalore. Distances are in a straight line, so the drive is longer. Triangles are hills, circles are waterfalls." [ref=f9e93]:
+        - generic [ref=f9e94]:
+          - status: Loading map…
+      - paragraph [ref=f9e97]: 10 trails shown
+      - list [ref=f9e98]:
+        - listitem [ref=f9e99]:
+          - generic [ref=f9e100]:
+            - heading "Nijagal Betta" [level=3] [ref=f9e101]
+            - paragraph [ref=f9e102]: Tumakuru (Near Dobbaspet), hidden gem
+            - paragraph [ref=f9e103]: An offbeat trail featuring ancient fort ruins and rock-cut caves along the highway.
+          - generic [ref=f9e104]:
+            - generic [ref=f9e105]:
+              - term [ref=f9e106]: Elevation
+              - definition [ref=f9e107]: 1,110 m
+            - generic [ref=f9e108]:
+              - term [ref=f9e109]: Walk
+              - definition [ref=f9e110]: about 4 km
+            - generic [ref=f9e111]:
+              - term [ref=f9e112]: From Bangalore
+              - definition [ref=f9e113]: 51 km
+            - generic [ref=f9e114]:
+              - term [ref=f9e115]: Entry
+              - definition [ref=f9e116]: Free
+            - generic [ref=f9e117]:
+              - term [ref=f9e118]: Getting there
+              - definition [ref=f9e119]:
+                - generic [ref=f9e120]: Very Easy.
+                - text: Located right next to NH-48; park near CCD/Kamath
+          - generic [ref=f9e121]:
+            - button "Make a trek plan for Nijagal Betta" [ref=f9e122]:
+              - text: Make a trek plan
+              - generic [ref=f9e123]: for Nijagal Betta
+            - button "Show on map (Nijagal Betta)" [ref=f9e124]:
+              - text: Show on map
+              - generic [ref=f9e125]: (Nijagal Betta)
+        - listitem [ref=f9e126]:
+          - generic [ref=f9e127]:
+            - heading "Madhugiri Betta" [level=3] [ref=f9e128]
+            - paragraph [ref=f9e129]: Tumakuru (Madhugiri)
+            - paragraph [ref=f9e130]: The second-largest monolithic rock in Asia, featuring a steep climb through multiple fort gates.
+          - generic [ref=f9e131]:
+            - generic [ref=f9e132]:
+              - term [ref=f9e133]: Elevation
+              - definition [ref=f9e134]: 1,200 m
+            - generic [ref=f9e135]:
+              - term [ref=f9e136]: Walk
+              - definition [ref=f9e137]: about 4.5 km
+            - generic [ref=f9e138]:
+              - term [ref=f9e139]: From Bangalore
+              - definition [ref=f9e140]: 87 km
+            - generic [ref=f9e141]:
+              - term [ref=f9e142]: Entry
+              - definition [ref=f9e143]: Free
+            - generic [ref=f9e144]:
+              - term [ref=f9e145]: Getting there
+              - definition [ref=f9e146]:
+                - generic [ref=f9e147]: Easy.
+                - text: Direct KSRTC buses run from Majestic to Madhugiri town
+          - generic [ref=f9e148]:
+            - button "Make a trek plan for Madhugiri Betta" [ref=f9e149]:
+              - text: Make a trek plan
+              - generic [ref=f9e150]: for Madhugiri Betta
+            - button "Show on map (Madhugiri Betta)" [ref=f9e151]:
+              - text: Show on map
+              - generic [ref=f9e152]: (Madhugiri Betta)
+        - listitem [ref=f9e153]:
+          - generic [ref=f9e154]:
+            - heading "Savandurga" [level=3] [ref=f9e155]
+            - paragraph [ref=f9e156]: Ramanagara
+            - paragraph [ref=f9e157]: One of the largest monolith hills in Asia, offering a steep, thrilling climb on bare granite rock.
+          - generic [ref=f9e158]:
+            - generic [ref=f9e159]:
+              - term [ref=f9e160]: Elevation
+              - definition [ref=f9e161]: 1,226 m
+            - generic [ref=f9e162]:
+              - term [ref=f9e163]: Walk
+              - definition [ref=f9e164]: about 5 km
+            - generic [ref=f9e165]:
+              - term [ref=f9e166]: From Bangalore
+              - definition [ref=f9e167]: 33 km
+            - generic [ref=f9e168]:
+              - term [ref=f9e169]: Entry
+              - definition [ref=f9e170]: Free
+            - generic [ref=f9e171]:
+              - term [ref=f9e172]: Getting there
+              - definition [ref=f9e173]:
+                - generic [ref=f9e174]: Easy.
+                - text: Good road connectivity via Magadi Road or Mysore Road
+          - generic [ref=f9e175]:
+            - button "Make a trek plan for Savandurga" [ref=f9e176]:
+              - text: Make a trek plan
+              - generic [ref=f9e177]: for Savandurga
+            - button "Show on map (Savandurga)" [ref=f9e178]:
+              - text: Show on map
+              - generic [ref=f9e179]: (Savandurga)
+        - listitem [ref=f9e180]:
+          - generic [ref=f9e181]:
+            - heading "Muthyala Maduvu Falls" [level=3] [ref=f9e182]
+            - paragraph [ref=f9e183]: Anekal, waterfall
+            - paragraph [ref=f9e184]: Pearl Valley waterfall trek with dense forest and stream crossings, best in monsoon.
+          - generic [ref=f9e185]:
+            - generic [ref=f9e186]:
+              - term [ref=f9e187]: Elevation
+              - definition [ref=f9e188]: 950 m
+            - generic [ref=f9e189]:
+              - term [ref=f9e190]: Walk
+              - definition [ref=f9e191]: about 3 km
+            - generic [ref=f9e192]:
+              - term [ref=f9e193]: From Bangalore
+              - definition [ref=f9e194]: 33 km
+            - generic [ref=f9e195]:
+              - term [ref=f9e196]: Entry
+              - definition [ref=f9e197]: Free
+            - generic [ref=f9e198]:
+              - term [ref=f9e199]: Getting there
+              - definition [ref=f9e200]:
+                - generic [ref=f9e201]: Very Easy.
+                - text: 40km from Bangalore, auto from Anekal
+          - generic [ref=f9e202]:
+            - button "Make a trek plan for Muthyala Maduvu Falls" [ref=f9e203]:
+              - text: Make a trek plan
+              - generic [ref=f9e204]: for Muthyala Maduvu Falls
+            - button "Show on map (Muthyala Maduvu Falls)" [ref=f9e205]:
+              - text: Show on map
+              - generic [ref=f9e206]: (Muthyala Maduvu Falls)
+        - listitem [ref=f9e207]:
+          - generic [ref=f9e208]:
+            - heading "Thottikallu Falls - TK Falls" [level=3] [ref=f9e209]
+            - paragraph [ref=f9e210]: Kanakapura, waterfall
+            - paragraph [ref=f9e211]: Popular monsoon waterfall with a short forest trail and natural pool.
+          - generic [ref=f9e212]:
+            - generic [ref=f9e213]:
+              - term [ref=f9e214]: Elevation
+              - definition [ref=f9e215]: 900 m
+            - generic [ref=f9e216]:
+              - term [ref=f9e217]: Walk
+              - definition [ref=f9e218]: about 2 km
+            - generic [ref=f9e219]:
+              - term [ref=f9e220]: From Bangalore
+              - definition [ref=f9e221]: 19 km
+            - generic [ref=f9e222]:
+              - term [ref=f9e223]: Entry
+              - definition [ref=f9e224]: Ticketed
+            - generic [ref=f9e225]:
+              - term [ref=f9e226]: Getting there
+              - definition [ref=f9e227]:
+                - generic [ref=f9e228]: Very Easy.
+                - text: Off Kanakapura Road
+          - generic [ref=f9e229]:
+            - button "Make a trek plan for Thottikallu Falls - TK Falls" [ref=f9e230]:
+              - text: Make a trek plan
+              - generic [ref=f9e231]: for Thottikallu Falls - TK Falls
+            - button "Show on map (Thottikallu Falls - TK Falls)" [ref=f9e232]:
+              - text: Show on map
+              - generic [ref=f9e233]: (Thottikallu Falls - TK Falls)
+        - listitem [ref=f9e234]:
+          - generic [ref=f9e235]:
+            - heading "Uttari Betta" [level=3] [ref=f9e236]
+            - paragraph [ref=f9e237]: Kunigal, hidden gem
+            - paragraph [ref=f9e238]: A scenic day and sunrise trek that passes through village fort walls and lush grasslands.
+          - generic [ref=f9e239]:
+            - generic [ref=f9e240]:
+              - term [ref=f9e241]: Elevation
+              - definition [ref=f9e242]: 1,130 m
+            - generic [ref=f9e243]:
+              - term [ref=f9e244]: Walk
+              - definition [ref=f9e245]: about 5 km
+            - generic [ref=f9e246]:
+              - term [ref=f9e247]: From Bangalore
+              - definition [ref=f9e248]: 51 km
+            - generic [ref=f9e249]:
+              - term [ref=f9e250]: Entry
+              - definition [ref=f9e251]: Ticketed
+            - generic [ref=f9e252]:
+              - term [ref=f9e253]: Getting there
+              - definition [ref=f9e254]:
+                - generic [ref=f9e255]: Easy.
+                - text: Approx. 2 hours via Magadi Road
+          - generic [ref=f9e256]:
+            - button "Make a trek plan for Uttari Betta" [ref=f9e257]:
+              - text: Make a trek plan
+              - generic [ref=f9e258]: for Uttari Betta
+            - button "Show on map (Uttari Betta)" [ref=f9e259]:
+              - text: Show on map
+              - generic [ref=f9e260]: (Uttari Betta)
+        - listitem [ref=f9e261]:
+          - generic [ref=f9e262]:
+            - heading "Nandi Hills" [level=3] [ref=f9e263]
+            - paragraph [ref=f9e264]: Chikkaballapur
+            - paragraph [ref=f9e265]: The most famous weekend getaway, utilizing a historical stone step route.
+          - generic [ref=f9e266]:
+            - generic [ref=f9e267]:
+              - term [ref=f9e268]: Elevation
+              - definition [ref=f9e269]: 1,478 m
+            - generic [ref=f9e270]:
+              - term [ref=f9e271]: Walk
+              - definition [ref=f9e272]: about 3 km
+            - generic [ref=f9e273]:
+              - term [ref=f9e274]: From Bangalore
+              - definition [ref=f9e275]: 45 km
+            - generic [ref=f9e276]:
+              - term [ref=f9e277]: Entry
+              - definition [ref=f9e278]: Ticketed
+            - generic [ref=f9e279]:
+              - term [ref=f9e280]: Getting there
+              - definition [ref=f9e281]:
+                - generic [ref=f9e282]: Very Easy.
+                - text: Highly commercialised, paved roads
+          - generic [ref=f9e283]:
+            - button "Make a trek plan for Nandi Hills" [ref=f9e284]:
+              - text: Make a trek plan
+              - generic [ref=f9e285]: for Nandi Hills
+            - button "Show on map (Nandi Hills)" [ref=f9e286]:
+              - text: Show on map
+              - generic [ref=f9e287]: (Nandi Hills)
+        - listitem [ref=f9e288]:
+          - generic [ref=f9e289]:
+            - heading "Makalidurga" [level=3] [ref=f9e290]
+            - paragraph [ref=f9e291]: Doddaballapur
+            - paragraph [ref=f9e292]: A popular lake-facing hill with an old fort structure overlooking railway tracks.
+          - generic [ref=f9e293]:
+            - generic [ref=f9e294]:
+              - term [ref=f9e295]: Elevation
+              - definition [ref=f9e296]: 1,350 m
+            - generic [ref=f9e297]:
+              - term [ref=f9e298]: Walk
+              - definition [ref=f9e299]: about 5 km
+            - generic [ref=f9e300]:
+              - term [ref=f9e301]: From Bangalore
+              - definition [ref=f9e302]: 52 km
+            - generic [ref=f9e303]:
+              - term [ref=f9e304]: Entry
+              - definition [ref=f9e305]: Ticketed
+            - generic [ref=f9e306]:
+              - term [ref=f9e307]: Getting there
+              - definition [ref=f9e308]:
+                - generic [ref=f9e309]: Easy.
+                - text: Can be reached by local train to Makalidurga station
+          - generic [ref=f9e310]:
+            - button "Make a trek plan for Makalidurga" [ref=f9e311]:
+              - text: Make a trek plan
+              - generic [ref=f9e312]: for Makalidurga
+            - button "Show on map (Makalidurga)" [ref=f9e313]:
+              - text: Show on map
+              - generic [ref=f9e314]: (Makalidurga)
+        - listitem [ref=f9e315]:
+          - generic [ref=f9e316]:
+            - heading "Antargange" [level=3] [ref=f9e317]
+            - paragraph [ref=f9e318]: Kolar, hidden gem
+            - paragraph [ref=f9e319]: A unique volcanic rock hill formation famous for nighttime cave exploration.
+          - generic [ref=f9e320]:
+            - generic [ref=f9e321]:
+              - term [ref=f9e322]: Elevation
+              - definition [ref=f9e323]: 1,226 m
+            - generic [ref=f9e324]:
+              - term [ref=f9e325]: Walk
+              - definition [ref=f9e326]: about 3 km
+            - generic [ref=f9e327]:
+              - term [ref=f9e328]: From Bangalore
+              - definition [ref=f9e329]: 58 km
+            - generic [ref=f9e330]:
+              - term [ref=f9e331]: Entry
+              - definition [ref=f9e332]: Free
+            - generic [ref=f9e333]:
+              - term [ref=f9e334]: Getting there
+              - definition [ref=f9e335]:
+                - generic [ref=f9e336]: Easy.
+                - text: Just 4 km from Kolar town
+          - generic [ref=f9e337]:
+            - button "Make a trek plan for Antargange" [ref=f9e338]:
+              - text: Make a trek plan
+              - generic [ref=f9e339]: for Antargange
+            - button "Show on map (Antargange)" [ref=f9e340]:
+              - text: Show on map
+              - generic [ref=f9e341]: (Antargange)
+        - listitem [ref=f9e342]:
+          - generic [ref=f9e343]:
+            - heading "Kabbaladurga" [level=3] [ref=f9e344]
+            - paragraph [ref=f9e345]: Kanakapura
+            - paragraph [ref=f9e346]: A steep, smooth monolithic night trek ideal for watching sunrise from top ruins.
+          - generic [ref=f9e347]:
+            - generic [ref=f9e348]:
+              - term [ref=f9e349]: Elevation
+              - definition [ref=f9e350]: 1,090 m
+            - generic [ref=f9e351]:
+              - term [ref=f9e352]: Walk
+              - definition [ref=f9e353]: about 5 km
+            - generic [ref=f9e354]:
+              - term [ref=f9e355]: From Bangalore
+              - definition [ref=f9e356]: 62 km
+            - generic [ref=f9e357]:
+              - term [ref=f9e358]: Entry
+              - definition [ref=f9e359]: Free
+            - generic [ref=f9e360]:
+              - term [ref=f9e361]: Getting there
+              - definition [ref=f9e362]:
+                - generic [ref=f9e363]: Moderate.
+                - text: 80 km from city; personal vehicle best
+          - generic [ref=f9e364]:
+            - button "Make a trek plan for Kabbaladurga" [ref=f9e365]:
+              - text: Make a trek plan
+              - generic [ref=f9e366]: for Kabbaladurga
+            - button "Show on map (Kabbaladurga)" [ref=f9e367]:
+              - text: Show on map
+              - generic [ref=f9e368]: (Kabbaladurga)
+    - generic [ref=f9e370]:
+      - figure [ref=f9e371]:
+        - img "A red earth trail through misty forest in the Western Ghats" [ref=f9e372]
+      - generic [ref=f9e373]:
+        - heading "How trek plans work" [level=2] [ref=f9e374]
+        - paragraph [ref=f9e375]: A trek plan is a shared sheet for your group, not an official permit. Everyone gets their own page, so a split group still has what it needs.
+        - list [ref=f9e376]:
+          - listitem [ref=f9e377]:
+            - generic [ref=f9e379]: "1"
+            - generic [ref=f9e380]:
+              - heading "Pick a trail" [level=3] [ref=f9e381]
+              - paragraph [ref=f9e382]: Start from any trail above, or type in the trek you have planned.
+          - listitem [ref=f9e383]:
+            - generic [ref=f9e385]: "2"
+            - generic [ref=f9e386]:
+              - heading "Book a permit if the trek needs one" [level=3] [ref=f9e387]
+              - paragraph [ref=f9e388]:
+                - text: Some treks need a booking with the Karnataka Forest Department. Book those on
+                - link "Aranya Vihaara" [ref=f9e389] [cursor=pointer]:
+                  - /url: https://aranyavihaara.karnataka.gov.in/
+                - text: ", the official site. KTES can't book treks or issue permits."
+          - listitem [ref=f9e390]:
+            - generic [ref=f9e392]: "3"
+            - generic [ref=f9e393]:
+              - heading "Add your group" [level=3] [ref=f9e394]
+              - paragraph [ref=f9e395]: Leader details, an emergency contact, and a photo for each person.
+          - listitem [ref=f9e396]:
+            - generic [ref=f9e398]: "4"
+            - generic [ref=f9e399]:
+              - heading "Download the PDF" [level=3] [ref=f9e400]
+              - paragraph [ref=f9e401]: A cover sheet for the group, then one page per trekker with a QR that opens the trailhead in Google Maps.
+          - listitem [ref=f9e402]:
+            - generic [ref=f9e403]: "5"
+            - generic [ref=f9e404]:
+              - heading "Carry it on the trek" [level=3] [ref=f9e405]
+              - paragraph [ref=f9e406]: Keep it with any official ticket or permit, on your phone or on paper, until everyone is back down.
+    - generic [ref=f9e409]:
+      - heading "Heading out this weekend?" [level=2] [ref=f9e410]
+      - paragraph [ref=f9e411]: Make your group's trek plan before you leave the city, while everyone still has signal.
+      - button "Make a trek plan" [ref=f9e412]
+  - contentinfo [ref=f9e413]:
+    - generic [ref=f9e414]:
+      - generic [ref=f9e415]:
+        - paragraph [ref=f9e416]: KTESKarnataka Trekking Exploration Site
+        - paragraph [ref=f9e417]:
+          - text: A community guide to treks around Bangalore, made by trekkers. This isn't a government website, and trek plans made here aren't permits. For official trek bookings, use
+          - link "Aranya Vihaara" [ref=f9e418] [cursor=pointer]:
+            - /url: https://aranyavihaara.karnataka.gov.in/
+          - text: ", run by the Karnataka Forest Department."
+      - paragraph [ref=f9e419]: Start early, carry water, and bring your litter back down.

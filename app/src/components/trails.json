@@ -8,7 +8,9 @@
     "elevation": "1,110 m",
     "isFree": true,
     "category": "hidden-gem",
-    "accessibility": "Very Easy (Located right next to NH-48; park near CCD/Kamath)"
+    "accessibility": "Very Easy (Located right next to NH-48; park near CCD/Kamath)",
+    "lat": 13.24726,
+    "lng": 77.21732
   },
   {
     "id": "madhugiri-betta",
@@ -19,7 +21,9 @@
     "elevation": "1,200 m",
     "isFree": true,
     "category": "trek",
-    "accessibility": "Easy (Direct KSRTC buses run from Majestic to Madhugiri town)"
+    "accessibility": "Easy (Direct KSRTC buses run from Majestic to Madhugiri town)",
+    "lat": 13.65148,
+    "lng": 77.19965
   },
   {
     "id": "savandurga",
@@ -30,7 +34,9 @@
     "elevation": "1,226 m",
     "isFree": true,
     "category": "trek",
-    "accessibility": "Easy (Good road connectivity via Magadi Road or Mysore Road)"
+    "accessibility": "Easy (Good road connectivity via Magadi Road or Mysore Road)",
+    "lat": 12.91942,
+    "lng": 77.29209
   },
   {
     "id": "muthyala-maduvu",
@@ -41,7 +47,9 @@
     "elevation": "950 m",
     "isFree": true,
     "category": "waterfall",
-    "accessibility": "Very Easy (40km from Bangalore, auto from Anekal)"
+    "accessibility": "Very Easy (40km from Bangalore, auto from Anekal)",
+    "lat": 12.68623,
+    "lng": 77.66511
   },
   {
     "id": "thottikallu",
@@ -52,7 +60,9 @@
     "elevation": "900 m",
     "isFree": false,
     "category": "waterfall",
-    "accessibility": "Very Easy (Off Kanakapura Road)"
+    "accessibility": "Very Easy (Off Kanakapura Road)",
+    "lat": 12.80604,
+    "lng": 77.53839
   },
   {
     "id": "uttari-betta",
@@ -63,7 +73,9 @@
     "elevation": "1,130 m",
     "isFree": false,
     "category": "hidden-gem",
-    "accessibility": "Easy (Approx. 2 hours via Magadi Road)"
+    "accessibility": "Easy (Approx. 2 hours via Magadi Road)",
+    "lat": 12.96274,
+    "lng": 77.12368
   },
   {
     "id": "nandi-hills",
@@ -74,7 +86,9 @@
     "elevation": "1,478 m",
     "isFree": false,
     "category": "trek",
-    "accessibility": "Very Easy (Highly commercialised, paved roads)"
+    "accessibility": "Very Easy (Highly commercialised, paved roads)",
+    "lat": 13.37013,
+    "lng": 77.68415
   },
   {
     "id": "makalidurga",
@@ -85,7 +99,9 @@
     "elevation": "1,350 m",
     "isFree": false,
     "category": "trek",
-    "accessibility": "Easy (Can be reached by local train to Makalidurga station)"
+    "accessibility": "Easy (Can be reached by local train to Makalidurga station)",
+    "lat": 13.43287,
+    "lng": 77.5015
   },
   {
     "id": "antargange",
@@ -96,7 +112,9 @@
     "elevation": "1,226 m",
     "isFree": true,
     "category": "hidden-gem",
-    "accessibility": "Easy (Just 4 km from Kolar town)"
+    "accessibility": "Easy (Just 4 km from Kolar town)",
+    "lat": 13.14935,
+    "lng": 78.09784
   },
   {
     "id": "kabbaladurga",
@@ -107,9 +125,11 @@
     "elevation": "1,090 m",
     "isFree": true,
     "category": "trek",
-    "accessibility": "Moderate (80 km from city; personal vehicle best)"
+    "accessibility": "Moderate (80 km from city; personal vehicle best)",
+    "lat": 12.49804,
+    "lng": 77.29498
   },
-   {
+  {
     "id": "nijagal-betta",
     "region": "Tumakuru (Near Dobbaspet)",
     "name": "Nijagal Betta",
@@ -118,7 +138,9 @@
     "elevation": "1,110 m",
     "isFree": true,
     "category": "hidden-gem",
-    "accessibility": "Very Easy (Located right next to NH-48; park near CCD/Kamath)"
+    "accessibility": "Very Easy (Located right next to NH-48; park near CCD/Kamath)",
+    "lat": 13.24726,
+    "lng": 77.21732
   },
   {
     "id": "madhugiri-betta",
@@ -129,9 +151,11 @@
     "elevation": "1,200 m",
     "isFree": true,
     "category": "trek",
-    "accessibility": "Easy (Direct KSRTC buses run from Majestic to Madhugiri town)"
+    "accessibility": "Easy (Direct KSRTC buses run from Majestic to Madhugiri town)",
+    "lat": 13.65148,
+    "lng": 77.19965
   },
-    {
+  {
     "id": "savandurga",
     "region": "Ramanagara",
     "name": "Savandurga",
@@ -140,7 +164,9 @@
     "elevation": "1,226 m",
     "isFree": true,
     "category": "trek",
-    "accessibility": "Easy (Good road connectivity via Magadi Road or Mysore Road)"
+    "accessibility": "Easy (Good road connectivity via Magadi Road or Mysore Road)",
+    "lat": 12.91942,
+    "lng": 77.29209
   },
   {
     "id": "muthyala-maduvu",
@@ -151,7 +177,9 @@
     "elevation": "950 m",
     "isFree": true,
     "category": "waterfall",
-    "accessibility": "Very Easy (40km from Bangalore, auto from Anekal)"
+    "accessibility": "Very Easy (40km from Bangalore, auto from Anekal)",
+    "lat": 12.68623,
+    "lng": 77.66511
   },
   {
     "id": "thottikallu",
@@ -162,50 +190,60 @@
     "elevation": "900 m",
     "isFree": false,
     "category": "waterfall",
-    "accessibility": "Very Easy (Off Kanakapura Road)"
+    "accessibility": "Very Easy (Off Kanakapura Road)",
+    "lat": 12.80604,
+    "lng": 77.53839
   },
-    {
-        "id": "uttari-betta",
-        "region": "Kunigal",
-        "name": "Uttari Betta",
-        "note": "A scenic day and sunrise trek that passes through village fort walls and lush grasslands.",
-        "distance": "~5 km",
-        "elevation": "1,130 m",
-        "isFree": false,
-        "category": "hidden-gem",
-        "accessibility": "Easy (Approx. 2 hours via Magadi Road)"
-    },
-    {
-        "id": "nandi-hills",
-        "region": "Chikkaballapur",
-        "name": "Nandi Hills",
-        "note": "The most famous weekend getaway, utilizing a historical stone step route.",
-        "distance": "~3 km",
-        "elevation": "1,478 m",
-        "isFree": false,
-        "category": "trek",
-        "accessibility": "Very Easy (Highly commercialised, paved roads)"
-    },
-    {
-        "id": "makalidurga",
-        "region": "Doddaballapur",
-        "name": "Makalidurga",
-        "note": "A popular lake-facing hill with an old fort structure overlooking railway tracks.",
-        "distance": "~5 km",
-        "elevation": "1,350 m",
-        "isFree": false,
-        "category": "trek",
-        "accessibility": "Easy (Can be reached by local train to Makalidurga station)"
-    },
-    {
-        "id": "antargange",
-        "region": "Kolar",
-        "name": "Antargange",
-        "note": "A unique volcanic rock hill formation famous for nighttime cave exploration.",
-        "distance": "~3 km",
-        "elevation": "1,226 m",
-        "isFree": true,
-        "category": "hidden-gem",
-        "accessibility": "Easy (Just 4 km from Kolar town)"
-    }
+  {
+    "id": "uttari-betta",
+    "region": "Kunigal",
+    "name": "Uttari Betta",
+    "note": "A scenic day and sunrise trek that passes through village fort walls and lush grasslands.",
+    "distance": "~5 km",
+    "elevation": "1,130 m",
+    "isFree": false,
+    "category": "hidden-gem",
+    "accessibility": "Easy (Approx. 2 hours via Magadi Road)",
+    "lat": 12.96274,
+    "lng": 77.12368
+  },
+  {
+    "id": "nandi-hills",
+    "region": "Chikkaballapur",
+    "name": "Nandi Hills",
+    "note": "The most famous weekend getaway, utilizing a historical stone step route.",
+    "distance": "~3 km",
+    "elevation": "1,478 m",
+    "isFree": false,
+    "category": "trek",
+    "accessibility": "Very Easy (Highly commercialised, paved roads)",
+    "lat": 13.37013,
+    "lng": 77.68415
+  },
+  {
+    "id": "makalidurga",
+    "region": "Doddaballapur",
+    "name": "Makalidurga",
+    "note": "A popular lake-facing hill with an old fort structure overlooking railway tracks.",
+    "distance": "~5 km",
+    "elevation": "1,350 m",
+    "isFree": false,
+    "category": "trek",
+    "accessibility": "Easy (Can be reached by local train to Makalidurga station)",
+    "lat": 13.43287,
+    "lng": 77.5015
+  },
+  {
+    "id": "antargange",
+    "region": "Kolar",
+    "name": "Antargange",
+    "note": "A unique volcanic rock hill formation famous for nighttime cave exploration.",
+    "distance": "~3 km",
+    "elevation": "1,226 m",
+    "isFree": true,
+    "category": "hidden-gem",
+    "accessibility": "Easy (Just 4 km from Kolar town)",
+    "lat": 13.14935,
+    "lng": 78.09784
+  }
 ]

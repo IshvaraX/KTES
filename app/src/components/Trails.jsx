@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import { TRAILS, CATEGORY_LABEL } from "./lib/trails";
+import { hasMapKey } from "./lib/maptiler";
+import TrailMap from "./TrailMap";
 
 const TYPES = [
   { key: "all", label: "All" },
@@ -41,7 +43,7 @@ function Segmented({ legend, options, value, onChange, counts }) {
   );
 }
 
-function TrailRow({ trail, onPlan }) {
+function TrailRow({ trail, onPlan, onShowOnMap }) {
   const isFall = trail.category === "waterfall";
   return (
     <li
@@ -65,20 +67,27 @@ function TrailRow({ trail, onPlan }) {
         <p className="mt-4 max-w-[52ch] font-serif text-lg leading-[1.6] text-mist/90">{trail.note}</p>
       </div>
 
-      <dl className="grid grid-cols-3 content-start gap-x-6 gap-y-5 text-[0.9375rem] lg:pt-2">
+      <dl className="grid grid-cols-2 content-start gap-x-6 gap-y-5 text-[0.9375rem] sm:grid-cols-4 lg:grid-cols-2 lg:pt-2">
         <div>
           <dt className="text-lichen">Elevation</dt>
           <dd className="mt-0.5 text-xl font-semibold tabular-nums">{trail.elevation}</dd>
         </div>
         <div>
-          <dt className="text-lichen">Distance</dt>
-          <dd className="mt-0.5 text-xl font-semibold tabular-nums"><span className="text-[0.9375rem] font-normal text-lichen">about </span>{trail.distance.replace(/^~\s*/, "")}</dd>
+          <dt className="text-lichen">Walk</dt>
+          <dd className="mt-0.5 text-xl font-semibold tabular-nums">
+            <span className="text-[0.9375rem] font-normal text-lichen">about </span>
+            {trail.distance.replace(/^~\s*/, "")}
+          </dd>
+        </div>
+        <div>
+          <dt className="text-lichen">From Bangalore</dt>
+          <dd className="mt-0.5 text-xl font-semibold tabular-nums">{trail.fromCityKm} km</dd>
         </div>
         <div>
           <dt className="text-lichen">Entry</dt>
           <dd className="mt-0.5 text-xl font-semibold">{trail.isFree ? "Free" : "Ticketed"}</dd>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-full">
           <dt className="text-lichen">Getting there</dt>
           <dd className="mt-0.5 max-w-[48ch] leading-relaxed">
             <span className="font-semibold">{trail.level}.</span> {trail.access}
@@ -86,11 +95,21 @@ function TrailRow({ trail, onPlan }) {
         </div>
       </dl>
 
-      <div className="lg:pt-2">
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 lg:flex-col lg:items-end lg:pt-2">
         <button type="button" onClick={() => onPlan(trail)} className="btn btn-line-light">
-          Plan a permit
+          Make a trek plan
           <span className="sr-only"> for {trail.name}</span>
         </button>
+        {onShowOnMap && (
+          <button
+            type="button"
+            onClick={() => onShowOnMap(trail.id)}
+            className="text-[0.9375rem] text-lichen underline underline-offset-4 hover:text-mist"
+          >
+            Show on map
+            <span className="sr-only"> ({trail.name})</span>
+          </button>
+        )}
       </div>
     </li>
   );
@@ -99,6 +118,7 @@ function TrailRow({ trail, onPlan }) {
 export default function Trails({ onPlan }) {
   const [type, setType] = useState("all");
   const [entry, setEntry] = useState("all");
+  const [selectedId, setSelectedId] = useState(null);
 
   const typeCounts = useMemo(
     () => Object.fromEntries(TYPES.map(({ key }) => [key, key === "all" ? TRAILS.length : TRAILS.filter((t) => t.category === key).length])),
@@ -112,6 +132,12 @@ export default function Trails({ onPlan }) {
       ),
     [type, entry]
   );
+  const visibleIds = useMemo(() => new Set(shown.map((t) => t.id)), [shown]);
+
+  function showOnMap(id) {
+    setSelectedId(id);
+    document.getElementById("trail-map")?.scrollIntoView({ block: "center" });
+  }
 
   return (
     <section id="trails" className="on-dark bg-shola pt-16 pb-24 text-mist sm:pt-20 sm:pb-28">
@@ -129,6 +155,22 @@ export default function Trails({ onPlan }) {
           </div>
         </div>
 
+        {hasMapKey && (
+          <figure id="trail-map" className="mt-12 scroll-mt-24">
+            <TrailMap
+              allTrails={TRAILS}
+              visibleIds={visibleIds}
+              selectedId={selectedId}
+              onSelect={setSelectedId}
+              onPlan={onPlan}
+            />
+            <figcaption className="mt-3 text-sm text-lichen">
+              Rings mark 50 and 100 km from central Bangalore. Distances are in a straight line, so the drive is longer.
+              Triangles are hills, circles are waterfalls.
+            </figcaption>
+          </figure>
+        )}
+
         <p className="sr-only" aria-live="polite">
           {shown.length} trails shown
         </p>
@@ -136,7 +178,7 @@ export default function Trails({ onPlan }) {
         {shown.length > 0 ? (
           <ul className="mt-12 border-t border-mist/15">
             {shown.map((trail) => (
-              <TrailRow key={trail.id} trail={trail} onPlan={onPlan} />
+              <TrailRow key={trail.id} trail={trail} onPlan={onPlan} onShowOnMap={hasMapKey ? showOnMap : null} />
             ))}
           </ul>
         ) : (

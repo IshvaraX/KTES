@@ -1,4 +1,5 @@
-﻿import raw from "../trails.json";
+import raw from "../trails.json";
+import { BANGALORE, distanceKm, pinLink } from "./maptiler";
 
 const seen = new Set();
 
@@ -11,6 +12,7 @@ export const TRAILS = raw
       level: match ? match[1].trim() : t.accessibility,
       access: match && match[2] ? match[2] : "",
       elevationM: parseInt(t.elevation.replace(/\D/g, ""), 10),
+      fromCityKm: Math.round(distanceKm(BANGALORE, t)),
     };
   });
 
@@ -20,7 +22,8 @@ export const CATEGORY_LABEL = {
   "hidden-gem": "Hidden gem",
 };
 
+export const OFFICIAL_BOOKING_URL = "https://aranyavihaara.karnataka.gov.in/";
+
 export function mapsSearchLink(trail) {
-  const q = `${trail.name}, ${trail.region}, Karnataka`;
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+  return pinLink(trail);
 }

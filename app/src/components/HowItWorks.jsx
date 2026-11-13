@@ -1,7 +1,21 @@
+import { OFFICIAL_BOOKING_URL } from "./lib/trails";
+
 const STEPS = [
   {
     title: "Pick a trail",
     body: "Start from any trail above, or type in the trek you have planned.",
+  },
+  {
+    title: "Book a permit if the trek needs one",
+    body: (
+      <>
+        Some treks need a booking with the Karnataka Forest Department. Book those on{" "}
+        <a href={OFFICIAL_BOOKING_URL} target="_blank" rel="noreferrer" className="font-medium text-shola underline underline-offset-2">
+          Aranya Vihaara
+        </a>
+        , the official site. KTES can't book treks or issue permits.
+      </>
+    ),
   },
   {
     title: "Add your group",
@@ -13,7 +27,7 @@ const STEPS = [
   },
   {
     title: "Carry it on the trek",
-    body: "Keep a copy on your phone or on paper until everyone is back down.",
+    body: "Keep it with any official ticket or permit, on your phone or on paper, until everyone is back down.",
   },
 ];
 
@@ -31,9 +45,9 @@ export default function HowItWorks() {
         </figure>
 
         <div className="lg:pt-6">
-          <h2 className="display text-[clamp(2.75rem,6vw,4.5rem)]">How permits work</h2>
+          <h2 className="display text-[clamp(2.75rem,6vw,4.5rem)]">How trek plans work</h2>
           <p className="mt-4 max-w-[44ch] text-lg leading-relaxed text-granite">
-            Everyone in the group gets their own page, so a split group still has what it needs.
+            A trek plan is a shared sheet for your group, not an official permit. Everyone gets their own page, so a split group still has what it needs.
           </p>
 
           <ol className="relative mt-12">

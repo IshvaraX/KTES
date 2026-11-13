@@ -124,7 +124,7 @@ function Skyline() {
   );
 }
 
-export default function Hero({ onOpenPermit }) {
+export default function Hero({ onOpenPlan }) {
   return (
     <section id="top" className="relative overflow-hidden bg-mist pt-12 sm:pt-16">
       <div className="mx-auto grid max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-end lg:gap-16">
@@ -133,12 +133,12 @@ export default function Hero({ onOpenPermit }) {
         </h1>
         <div className="flex flex-col gap-6 lg:pb-2">
           <p className="max-w-[40ch] text-lg leading-relaxed text-granite">
-            Pick a betta, fort or waterfall within a day's drive. Then make a permit for your whole group, with a map QR on
+            Pick a betta, fort or waterfall within a day's drive. Then make a trek plan for your whole group, with a map QR on
             every page.
           </p>
           <div className="flex flex-wrap gap-3">
-            <button type="button" onClick={onOpenPermit} className="btn btn-stamp">
-              Plan a permit
+            <button type="button" onClick={onOpenPlan} className="btn btn-stamp">
+              Make a trek plan
             </button>
             <a href="#trails" className="btn btn-quiet">
               Browse trails

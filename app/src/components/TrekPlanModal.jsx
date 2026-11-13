@@ -1,7 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { fileToURL, validMaps, permitId } from "./lib/utils.jsx";
-import { generatePermitPdf } from "./lib/pdfGenerate";
-import { mapsSearchLink } from "./lib/trails";
+import { fileToURL, validMaps, planId } from "./lib/utils.jsx";
+import { generateTrekPlanPdf } from "./lib/pdfGenerate";
+import { mapsSearchLink, OFFICIAL_BOOKING_URL } from "./lib/trails";
+import { hasMapKey, pinLink, placeNameAt } from "./lib/maptiler";
+import TrekSearch from "./TrekSearch";
+import PinMap from "./PinMap";
 
 const today = new Date().toISOString().split("T")[0];
 const emptyMember = () => ({
@@ -83,7 +86,7 @@ function Section({ title, aside, children }) {
   );
 }
 
-export default function PermitModal({ trail, onClose }) {
+export default function TrekPlanModal({ trail, onClose }) {
   const [trek, setTrek] = useState(() => ({
     trekName: trail?.name ?? "",
     trekLocation: trail ? `${trail.region}, Karnataka` : "",
@@ -96,6 +99,10 @@ export default function PermitModal({ trail, onClose }) {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [toast, setToast] = useState(null);
+  const [pin, setPin] = useState(() => (trail ? { lat: trail.lat, lng: trail.lng } : null));
+  const [locationAuto, setLocationAuto] = useState(true);
+  const [locating, setLocating] = useState(false);
+  const lookup = useRef(null);
   const firstFieldRef = useRef(null);
   const titleId = useId();
 
@@ -124,6 +131,63 @@ export default function PermitModal({ trail, onClose }) {
     const v = e.target.value;
     setMembers((prev) => prev.map((m) => (m.id === id ? { ...m, [field]: v } : m)));
   };
+
+  async function fillPlaceName(next) {
+    lookup.current?.abort();
+    const ctrl = new AbortController();
+    lookup.current = ctrl;
+    try {
+      const name = await placeNameAt(next, { signal: ctrl.signal });
+      if (name && !ctrl.signal.aborted) setTrek((prev) => ({ ...prev, trekLocation: name }));
+    } catch (err) {
+      if (err.name !== "AbortError") setToast("The place name couldn't be looked up. Type the location in.");
+    }
+  }
+
+  // force: the person chose this place, so the location field follows it again
+  function movePin(next, { placeName, force = false } = {}) {
+    const auto = force || locationAuto;
+    if (force) setLocationAuto(true);
+    setPin(next);
+    setTrek((prev) => ({ ...prev, mapsLink: pinLink(next), ...(auto && placeName ? { trekLocation: placeName } : {}) }));
+    if (auto && !placeName) fillPlaceName(next);
+  }
+
+  function pickTrek(option) {
+    if (option.kind === "trail") {
+      const t = option.trail;
+      setTrek((prev) => ({ ...prev, trekName: t.name }));
+      movePin({ lat: t.lat, lng: t.lng }, { placeName: `${t.region}, Karnataka`, force: true });
+    } else {
+      const p = option.place;
+      setTrek((prev) => ({ ...prev, trekName: p.name }));
+      movePin({ lat: p.lat, lng: p.lng }, { force: true });
+    }
+  }
+
+  function locateMe() {
+    if (!navigator.geolocation) {
+      setToast("This browser can't share its location. Search for the trek by name instead.");
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocating(false);
+        movePin({ lat: pos.coords.latitude, lng: pos.coords.longitude }, { force: true });
+        setToast("Pinned your current location.");
+      },
+      (err) => {
+        setLocating(false);
+        setToast(
+          err.code === 1
+            ? "Location access is off. Allow it in your browser, or search for the trek by name."
+            : "Your location couldn't be found. Try again, or search for the trek by name."
+        );
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
+    );
+  }
 
   async function handlePhoto(e, target, memberId) {
     const file = e.target.files?.[0];
@@ -174,7 +238,7 @@ export default function PermitModal({ trail, onClose }) {
     }
     setStatus("generating");
     try {
-      await generatePermitPdf({
+      await generateTrekPlanPdf({
         trekName: trek.trekName.trim(),
         trekLocation: trek.trekLocation.trim(),
         startDate: trek.startDate,
@@ -182,11 +246,11 @@ export default function PermitModal({ trail, onClose }) {
         mapsLink: trek.mapsLink.trim(),
         leader: { name: leader.name.trim(), phone: leader.phone.trim(), emergency: leader.emergency.trim(), photo: leader.photo },
         members: members.filter((m) => m.name.trim()).map((m) => ({ name: m.name.trim(), phone: m.phone.trim(), photo: m.photo })),
-        permitId: permitId(),
+        planId: planId(),
         issued: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }),
       });
       setStatus("done");
-      setToast("Permits downloaded.");
+      setToast("Trek plan downloaded.");
     } catch (err) {
       setStatus("error");
       setToast("The PDF couldn't be made. Check your connection and try again.");
@@ -196,7 +260,7 @@ export default function PermitModal({ trail, onClose }) {
     }
   }
 
-  const permitCount = 1 + members.filter((m) => m.name.trim()).length;
+  const pageCount = 1 + members.filter((m) => m.name.trim()).length;
   const required = "This is required.";
 
   return (
@@ -213,10 +277,11 @@ export default function PermitModal({ trail, onClose }) {
         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-shola/12 px-5 pt-6 pb-5 sm:px-8">
           <div>
             <h2 id={titleId} className="display text-[2.5rem]">
-              Trek permit
+              Trek plan
             </h2>
-            <p className="mt-2 max-w-[44ch] text-granite">
-              One cover sheet for the group, and a page with a map QR for each person.
+            <p className="mt-2 max-w-[48ch] text-granite">
+              A cover sheet for the group, and a page with a map QR for each person. It's for your group to share, not an
+              official permit.
             </p>
           </div>
           <button
@@ -237,16 +302,45 @@ export default function PermitModal({ trail, onClose }) {
             e.preventDefault();
             handleGenerate();
           }}
-          id="permit-form"
+          id="plan-form"
           noValidate
         >
           <Section title="The trek">
+            <p className="mb-5 rounded-[8px] bg-mist/70 px-4 py-3 text-[0.9375rem] leading-relaxed">
+              If this trek needs a forest permit, book it on{" "}
+              <a href={OFFICIAL_BOOKING_URL} target="_blank" rel="noreferrer" className="font-medium underline underline-offset-2">
+                Aranya Vihaara
+              </a>{" "}
+              first. KTES can't book treks or issue permits.
+            </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Trek name" error={errors.trekName && required}>
-                {(p) => <input {...p} ref={firstFieldRef} className="field" value={trek.trekName} onChange={setTrekField("trekName")} />}
+                {(p) =>
+                  hasMapKey ? (
+                    <TrekSearch
+                      {...p}
+                      ref={firstFieldRef}
+                      value={trek.trekName}
+                      onChange={(v) => setTrek((prev) => ({ ...prev, trekName: v }))}
+                      onPick={pickTrek}
+                    />
+                  ) : (
+                    <input {...p} ref={firstFieldRef} className="field" value={trek.trekName} onChange={setTrekField("trekName")} />
+                  )
+                }
               </Field>
               <Field label="Location" error={errors.trekLocation && required}>
-                {(p) => <input {...p} className="field" value={trek.trekLocation} onChange={setTrekField("trekLocation")} />}
+                {(p) => (
+                  <input
+                    {...p}
+                    className="field"
+                    value={trek.trekLocation}
+                    onChange={(e) => {
+                      setLocationAuto(false);
+                      setTrekField("trekLocation")(e);
+                    }}
+                  />
+                )}
               </Field>
               <Field label="Start date" error={errors.startDate && required}>
                 {(p) => <input {...p} type="date" className="field" min={today} value={trek.startDate} onChange={setTrekField("startDate")} />}
@@ -256,13 +350,40 @@ export default function PermitModal({ trail, onClose }) {
                   <input {...p} type="date" className="field" min={trek.startDate || today} value={trek.endDate} onChange={setTrekField("endDate")} />
                 )}
               </Field>
+              {hasMapKey && (
+                <div className="sm:col-span-2">
+                  <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <p className="text-[0.9375rem] font-medium">Trailhead pin</p>
+                    <button
+                      type="button"
+                      onClick={locateMe}
+                      disabled={locating}
+                      className="text-sm font-medium text-stamp underline underline-offset-2 hover:text-stamp-2 disabled:cursor-progress disabled:opacity-60"
+                    >
+                      {locating ? "Finding your location\u2026" : "Use my current location"}
+                    </button>
+                  </div>
+                  {pin ? (
+                    <>
+                      <PinMap pin={pin} onMove={(next) => movePin(next)} />
+                      <p className="mt-1.5 text-sm text-granite">
+                        Drag the pin or tap the map to mark where you start walking. Every QR opens this spot.
+                      </p>
+                    </>
+                  ) : (
+                    <div className="flex min-h-28 items-center justify-center rounded-[6px] border-[1.5px] border-dashed border-shola/30 px-4 py-5 text-center text-sm text-granite">
+                      Pick a trek from the suggestions, or use your current location, to drop a pin.
+                    </div>
+                  )}
+                </div>
+              )}
               <Field
                 label="Google Maps link"
                 className="sm:col-span-2"
-                error={errors.mapsLink && "Paste a link from Google Maps, like maps.app.goo.gl/…"}
+                error={errors.mapsLink && "Paste a link from Google Maps, like maps.app.goo.gl/\u2026"}
                 hint={
-                  trail
-                    ? "Filled with a map search for this trail. Swap in the exact trailhead pin if you have it."
+                  pin
+                    ? "Filled from the pin. Paste your own link to replace it."
                     : "In Google Maps, tap Share on the trailhead and paste the link here."
                 }
               >
@@ -274,7 +395,10 @@ export default function PermitModal({ trail, onClose }) {
                     className="field"
                     placeholder="https://maps.app.goo.gl/…"
                     value={trek.mapsLink}
-                    onChange={setTrekField("mapsLink")}
+                    onChange={(e) => {
+                      setPin(null);
+                      setTrekField("mapsLink")(e);
+                    }}
                   />
                 )}
               </Field>
@@ -355,10 +479,10 @@ export default function PermitModal({ trail, onClose }) {
 
         <div className="flex shrink-0 flex-col gap-3 border-t border-shola/12 bg-paper px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p className="text-granite" aria-live="polite">
-            {permitCount === 1 ? "1 permit page" : `${permitCount} permit pages`}, plus a cover sheet
+            {pageCount === 1 ? "1 trekker page" : `${pageCount} trekker pages`}, plus a cover sheet
           </p>
-          <button type="submit" form="permit-form" disabled={status === "generating"} className="btn btn-stamp min-h-12 px-7 text-base">
-            {status === "generating" ? "Making permits…" : "Download permits"}
+          <button type="submit" form="plan-form" disabled={status === "generating"} className="btn btn-stamp min-h-12 px-7 text-base">
+            {status === "generating" ? "Making your trek plan…" : "Download trek plan"}
           </button>
         </div>
 

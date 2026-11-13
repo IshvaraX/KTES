@@ -1,4 +1,4 @@
-export default function Header({ onOpenPermit }) {
+export default function Header({ onOpenPlan }) {
   return (
     <header className="sticky top-0 z-40 border-b border-shola/10 bg-mist/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
@@ -14,10 +14,10 @@ export default function Header({ onOpenPermit }) {
             Trails
           </a>
           <a href="#how" className="hidden text-[0.9375rem] font-medium text-shola/75 hover:text-shola sm:inline">
-            How permits work
+            How trek plans work
           </a>
-          <button type="button" onClick={onOpenPermit} className="btn btn-stamp">
-            Plan a permit
+          <button type="button" onClick={onOpenPlan} className="btn btn-stamp">
+            Make a trek plan
           </button>
         </nav>
       </div>

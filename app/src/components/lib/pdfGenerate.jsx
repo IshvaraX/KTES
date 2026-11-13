@@ -1,5 +1,10 @@
 import { U } from "./utils.jsx";
 
+const NOTICE = [
+  "Made with KTES, an independent trek guide. This is not a government permit.",
+  "Book official treks at aranyavihaara.karnataka.gov.in (Karnataka Forest Department).",
+];
+
 const P = {
   async generate(data) {
     const { jsPDF } = window.jspdf;
@@ -23,10 +28,10 @@ const P = {
     // Individual
     for (const p of all) {
       pdf.addPage();
-      this.permit(pdf, data, p, qr, w, h, m, page++);
+      this.trekker(pdf, data, p, qr, w, h, m, page++);
     }
 
-    pdf.save(`KTES_${data.trekName.replace(/\s+/g,'_')}.pdf`);
+    pdf.save(`KTES_trek_plan_${data.trekName.replace(/\s+/g,'_')}.pdf`);
   },
 
   cover(pdf, data, all, w, h, m, page) {
@@ -36,12 +41,12 @@ const P = {
     pdf.setFontSize(22);
     pdf.setTextColor(26,115,232);
     pdf.setFont('helvetica','bold');
-    pdf.text('KTES Trek Permit', w/2, 22, { align:'center' });
+    pdf.text('KTES Trek Plan', w/2, 22, { align:'center' });
 
     pdf.setFontSize(8);
     pdf.setTextColor(100);
     pdf.setFont('helvetica','normal');
-    pdf.text(`${data.permitId} • ${data.issued}`, w/2, 28, { align:'center' });
+    pdf.text(`Plan ${data.planId} • ${data.issued}`, w/2, 28, { align:'center' });
 
     let y = 38;
     pdf.setFillColor(245,245,245);
@@ -73,28 +78,33 @@ const P = {
     y = 120;
     pdf.setFontSize(10);
     pdf.setTextColor(26,115,232);
-    pdf.text('Permits:', m, y);
+    pdf.text('Trekkers:', m, y);
     pdf.setFontSize(9);
     pdf.setTextColor(60);
     all.forEach((p,i) => pdf.text(`${i+1}. ${p.name} — ${p.role}`, m+4, y+8 + i*6));
 
     pdf.setFontSize(7);
     pdf.setTextColor(160);
+    pdf.setFontSize(8);
+    pdf.setTextColor(90);
+    pdf.text(NOTICE, w/2, h-22, { align:'center' });
+    pdf.setFontSize(7);
+    pdf.setTextColor(160);
     pdf.text(`KTES | Page ${page}`, w/2, h-8, { align:'center' });
   },
 
-  permit(pdf, data, person, qr, w, h, m, page) {
+  trekker(pdf, data, person, qr, w, h, m, page) {
     pdf.setFillColor(26,115,232);
     pdf.rect(0,0,w,2.5,'F');
 
     pdf.setFontSize(16);
     pdf.setTextColor(26,115,232);
     pdf.setFont('helvetica','bold');
-    pdf.text('Individual Permit', w/2, 16, { align:'center' });
+    pdf.text('Trekker Page', w/2, 16, { align:'center' });
     pdf.setFontSize(7);
     pdf.setTextColor(100);
     pdf.setFont('helvetica','normal');
-    pdf.text(`${person.role} • ${data.permitId}`, w/2, 22, { align:'center' });
+    pdf.text(`${person.role} • Plan ${data.planId}`, w/2, 22, { align:'center' });
 
     // Photo
     const ps = 28;
@@ -152,14 +162,15 @@ const P = {
 
     pdf.setFontSize(7);
     pdf.setTextColor(120);
+    pdf.text(NOTICE, m, h-26);
     pdf.text(`Issued: ${data.issued}`, m, h-14);
-    pdf.text('Carry this permit during trek. Follow safety guidelines.', m, h-8);
+    pdf.text('Carry this during the trek. Follow safety guidelines.', m, h-8);
     pdf.setTextColor(160);
     pdf.text(`KTES | Page ${page}`, w/2, h-6, { align:'center' });
   }
 };
 
-export function generatePermitPdf(data) {
+export function generateTrekPlanPdf(data) {
   return P.generate(data);
 }
 

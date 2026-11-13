@@ -5,24 +5,24 @@ import HowItWorks from "./components/HowItWorks";
 import Trails from "./components/Trails";
 import CtaBand from "./components/CtaBand";
 import Footer from "./components/Footer";
-import PermitModal from "./components/PermitModal";
+import TrekPlanModal from "./components/TrekPlanModal";
 
 export default function App() {
   // null = closed; { trail } = open, optionally prefilled from a trail
-  const [permit, setPermit] = useState(null);
-  const openPermit = (trail = null) => setPermit({ trail });
+  const [plan, setPlan] = useState(null);
+  const openPlan = (trail = null) => setPlan({ trail });
 
   return (
     <>
-      <Header onOpenPermit={() => openPermit()} />
+      <Header onOpenPlan={() => openPlan()} />
       <main>
-        <Hero onOpenPermit={() => openPermit()} />
-        <Trails onPlan={(trail) => openPermit(trail)} />
+        <Hero onOpenPlan={() => openPlan()} />
+        <Trails onPlan={(trail) => openPlan(trail)} />
         <HowItWorks />
-        <CtaBand onOpenPermit={() => openPermit()} />
+        <CtaBand onOpenPlan={() => openPlan()} />
       </main>
       <Footer />
-      {permit && <PermitModal trail={permit.trail} onClose={() => setPermit(null)} />}
+      {plan && <TrekPlanModal trail={plan.trail} onClose={() => setPlan(null)} />}
     </>
   );
 }
