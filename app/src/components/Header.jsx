@@ -13,7 +13,7 @@ export default function Header({ onOpenPlan, onFindNear }) {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-40 bg-sky-wash transition-shadow ${scrolled ? "shadow-[0_1px_0_#c4d9ec]" : ""}`}>
+    <header className={`sticky top-0 z-40 bg-mist transition-shadow ${scrolled ? "shadow-[0_1px_0_rgba(23,51,23,0.1)]" : ""}`}>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <a href="#top" className="flex items-center gap-2.5 rounded-[12px]" aria-label="KTES home">
           <Logo className="h-9 w-9" />

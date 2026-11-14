@@ -30,7 +30,6 @@
   --color-alert: #b3261e;
   /* Water text: the sky blue darkened enough to read on the pale page */
   --color-water: #2c6aa8;
-  --color-sky-wash: #dcebf7;
 
   --font-sans: "Anybody", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Newsreader", Georgia, serif;
@@ -64,9 +63,6 @@
 }
 
 @layer components {
-  .hero-sky {
-    background: var(--color-sky-wash);
-  }
   /* Painted trail blaze: the mark trekkers follow on rocks */
   .trail-blaze {
     display: flex;

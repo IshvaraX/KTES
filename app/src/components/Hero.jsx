@@ -131,17 +131,6 @@ function Skyline() {
   );
 }
 
-const CLOUD = "M20 46a15 15 0 0 1 3-29 21 21 0 0 1 39-9 17 17 0 0 1 30 7 14 14 0 0 1 14 31Z";
-
-function Cloud({ className }) {
-  return (
-    <svg viewBox="0 0 120 52" className={`pointer-events-none absolute ${className}`} aria-hidden="true">
-      <path d={CLOUD} transform="translate(4 4)" className="fill-sky/25" />
-      <path d={CLOUD} className="fill-white" />
-    </svg>
-  );
-}
-
 const STEPS = [
   { title: "Pick a trail", detail: "Around Bangalore, or one near you" },
   { title: "Add your group", detail: "Names, phones and a photo each" },
@@ -195,9 +184,7 @@ function TrailSteps() {
 
 export default function Hero() {
   return (
-    <section id="top" className="hero-sky relative overflow-hidden pt-10 sm:pt-14">
-      <Cloud className="top-3 right-[2%] w-32 sm:w-40 lg:right-[4%]" />
-      <Cloud className="top-[50%] left-[3%] hidden w-36 opacity-90 lg:block" />
+    <section id="top" className="relative overflow-hidden bg-mist pt-10 sm:pt-14">
       <div className="relative mx-auto grid max-w-6xl gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16">
         <h1 className="display max-w-[16ch] text-[clamp(3.4rem,8vw,6.75rem)] text-shola">
           Climb the hills around Bangalore.
