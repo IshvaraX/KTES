@@ -137,46 +137,35 @@ const STEPS = [
   { title: "Download the plan", detail: "One PDF with a map QR on every page" },
 ];
 
-// Blazes switchback down the footpath; x is the blaze's left offset, tilt is its hand-painted angle
-const BLAZES = [
-  { x: 0, tilt: -4 },
-  { x: 44, tilt: 3 },
-  { x: 0, tilt: -2 },
-];
-const ROW = 84;
-
+// Waypoints on one marked route; the green one is the finish
 function TrailSteps() {
-  const path = `M 20 22 C 20 ${ROW * 0.55}, 64 ${ROW * 0.45}, 64 ${ROW + 22} S 20 ${ROW * 1.55 + 22}, 20 ${ROW * 2 + 22}`;
   return (
-    <div className="relative">
+    <div>
       <h2 className="sr-only">How it works</h2>
-      <svg
-        className="pointer-events-none absolute top-0 left-0"
-        width="90"
-        height={ROW * 2 + 44}
-        aria-hidden="true"
-      >
-        <path d={path} fill="none" className="stroke-earth/55" strokeWidth="2.5" strokeDasharray="1 7" strokeLinecap="round" />
-      </svg>
       <ol className="relative">
-        {STEPS.map((step, i) => (
-          <li key={step.title} className="relative flex items-start" style={{ height: i < STEPS.length - 1 ? ROW : "auto" }}>
-            <span
-              className="trail-blaze"
-              style={{ marginLeft: BLAZES[i].x, transform: `rotate(${BLAZES[i].tilt}deg)` }}
-              aria-hidden="true"
-            >
-              {i + 1}
-            </span>
-            <span className="ml-4 pt-0.5">
-              <span className="block text-xl leading-tight font-semibold">
-                <span className="sr-only">Step {i + 1}: </span>
-                {step.title}
+        {STEPS.map((step, i) => {
+          const last = i === STEPS.length - 1;
+          return (
+            <li key={step.title} className="relative flex gap-5 pb-8 last:pb-0">
+              {!last && <span aria-hidden="true" className="absolute top-10 bottom-0 left-[19px] w-[2px] rounded-full bg-fern" />}
+              <span
+                aria-hidden="true"
+                className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[1.05rem] font-bold ${
+                  last ? "bg-glow text-pine" : "border-2 border-fern bg-white text-pine"
+                }`}
+              >
+                {i + 1}
               </span>
-              <span className="mt-1 block text-[0.9375rem] text-granite">{step.detail}</span>
-            </span>
-          </li>
-        ))}
+              <span className="pt-1.5">
+                <span className="block text-xl leading-tight font-semibold">
+                  <span className="sr-only">Step {i + 1}: </span>
+                  {step.title}
+                </span>
+                <span className="mt-1 block text-[0.9375rem] leading-snug text-granite">{step.detail}</span>
+              </span>
+            </li>
+          );
+        })}
       </ol>
     </div>
   );

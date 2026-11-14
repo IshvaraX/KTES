@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Trails from "./components/Trails";
 import CtaBand from "./components/CtaBand";
 import Footer from "./components/Footer";
+import NoticeBar from "./components/NoticeBar";
 import TrekPlanModal from "./components/TrekPlanModal";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <CtaBand onOpenPlan={() => openPlan()} />
       </main>
       <Footer />
+      <NoticeBar />
       {plan && <TrekPlanModal trail={plan.trail} onClose={() => setPlan(null)} />}
     </>
   );
