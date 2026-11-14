@@ -125,7 +125,6 @@ export default function TrekPlanModal({ trail, onClose }) {
     return () => clearTimeout(t);
   }, [toast]);
 
-  // Places found near the user have no curated region, so look one up
   useEffect(() => {
     if (!trail || trail.region) return;
     const ctrl = new AbortController();
@@ -154,7 +153,6 @@ export default function TrekPlanModal({ trail, onClose }) {
     }
   }
 
-  // force: the person chose this place, so the location field follows it again
   function movePin(next, { placeName, force = false } = {}) {
     const auto = force || locationAuto;
     if (force) setLocationAuto(true);

@@ -30,7 +30,6 @@ const PLACEMENT = {
   below: { anchor: "top", offset: [0, -11] },
 };
 
-// Decide label sides on screen, after the map has framed the places
 function screenSides(map, points) {
   const px = points.map((p) => map.project([p.lng, p.lat]));
   return px.map((a, i) => {
@@ -164,7 +163,6 @@ export default function NearMap({ user, places, selected, radiusKm, onSelect, on
       properties: {},
       geometry: { type: "LineString", coordinates: [[selected.lng, selected.lat], [st.lng, st.lat]] },
     });
-    // Below keeps the station name clear of the trail's own label beside it
     const away = "below";
     const node = el("div", `station-pin label-${away}`);
     node.append(el("span", "station-pin-mark"), el("span", "station-pin-label", st.name));

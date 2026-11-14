@@ -15,7 +15,7 @@ function remember() {
   try {
     localStorage.setItem(STORAGE_KEY, "1");
   } catch {
-    // Private mode can block storage; the notice just shows again next visit
+    return;
   }
 }
 

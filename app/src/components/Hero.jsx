@@ -14,7 +14,6 @@ const HILLS = TRAILS.filter((t) => t.category !== "waterfall");
 
 const SHOULDERS = [0.42, 0.58, 0.3, 0.5];
 
-// Granite bettas: a stepped shoulder on one flank, then a blunt crown
 function hillGeometry(trail, i, count) {
   const span = W - 340;
   const cx = 170 + (count > 1 ? (i * span) / (count - 1) : span / 2);
@@ -36,7 +35,6 @@ function hillGeometry(trail, i, count) {
   return { d, apex, top };
 }
 
-// Stack labels upward until they clear the ones already placed
 function placeLabels(hills) {
   const placed = [];
   return hills.map((h) => {
@@ -50,7 +48,6 @@ function placeLabels(hills) {
   });
 }
 
-// A Kaveri-like river winding through the ground in front of the hills
 const RIVER = `M -10 ${H - 6} C 140 ${H + 2}, 300 ${H - 22}, 500 ${H - 12} S 820 ${H + 1}, 980 ${H - 15} S 1140 ${H - 2}, ${W + 10} ${H - 10}`;
 
 const SHAPES = HILLS.map((trail, i) => ({ trail, name: trail.name, ...hillGeometry(trail, i, HILLS.length) }));
@@ -137,7 +134,6 @@ const STEPS = [
   { title: "Download the plan", detail: "One PDF with a map QR on every page" },
 ];
 
-// Waypoints on one marked route; the green one is the finish
 function TrailSteps() {
   return (
     <div>

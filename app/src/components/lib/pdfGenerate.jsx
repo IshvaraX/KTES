@@ -13,7 +13,6 @@ const P = {
     const h = pdf.internal.pageSize.getHeight();
     const m = 16;
 
-    // QR code
     const qr = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.mapsLink)}`;
 
     let page = 1;
@@ -22,10 +21,8 @@ const P = {
       ...data.members.map(p => ({ ...p, role: 'Member' }))
     ];
 
-    // Cover
     this.cover(pdf, data, all, w, h, m, page++);
 
-    // Individual
     for (const p of all) {
       pdf.addPage();
       this.trekker(pdf, data, p, qr, w, h, m, page++);
@@ -106,7 +103,6 @@ const P = {
     pdf.setFont('helvetica','normal');
     pdf.text(`${person.role} • Plan ${data.planId}`, w/2, 22, { align:'center' });
 
-    // Photo
     const ps = 28;
     const px = w - m - ps;
     const py = 28;
@@ -116,7 +112,6 @@ const P = {
       try { pdf.addImage(person.photo, 'JPEG', px+1, py+1, ps-2, ps*1.3-2); } catch(e) {}
     }
 
-    // Details
     let y = 32;
     pdf.setFontSize(10);
     [
@@ -132,7 +127,6 @@ const P = {
       y += 8;
     });
 
-    // Trek info
     y = 78;
     pdf.setFillColor(248,248,248);
     pdf.roundedRect(m, y, w-2*m, 38, 3, 3, 'F');
@@ -146,7 +140,6 @@ const P = {
     pdf.text(data.trekLocation, m+5, y+19);
     pdf.text(`${U.fmt(data.startDate)} — ${U.fmt(data.endDate)}`, m+5, y+27);
 
-    // QR
     y = 126;
     pdf.setFillColor(245,245,245);
     pdf.roundedRect(m, y, w-2*m, 52, 3, 3, 'F');

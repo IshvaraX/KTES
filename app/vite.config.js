@@ -4,7 +4,6 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// Search engines and link previews need absolute URLs; set SITE_URL in .env or Netlify to override
 const DEFAULT_SITE_URL = 'https://ktes.netlify.app'
 
 function seo(siteUrl) {
@@ -77,7 +76,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [react(), tailwindcss(), seo(process.env.SITE_URL || env.SITE_URL || DEFAULT_SITE_URL)],
-    // Lets the browser read MAPTILER_API from app/.env without renaming it
     envPrefix: ['VITE_', 'MAPTILER_'],
   }
 })

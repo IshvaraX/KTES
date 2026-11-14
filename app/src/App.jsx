@@ -8,7 +8,6 @@ import NoticeBar from "./components/NoticeBar";
 import TrekPlanModal from "./components/TrekPlanModal";
 
 export default function App() {
-  // null = closed; { trail } = open, optionally prefilled from a trail
   const [plan, setPlan] = useState(null);
   const trailsRef = useRef(null);
   const openPlan = (trail = null) => setPlan({ trail });

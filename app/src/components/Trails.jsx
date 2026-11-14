@@ -27,7 +27,6 @@ const MODES = [
   { key: "near", label: "Near me" },
 ];
 
-// Sliding two-way switch between the curated list and the user's surroundings
 function ModeSwitch({ mode, onChange }) {
   const refs = useRef({});
   function onKeyDown(e) {

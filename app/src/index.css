@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand palette */
   --color-mint: #e3f0a3;
   --color-pine: #173317;
   --color-forest: #768a76;
@@ -11,10 +10,8 @@
   --color-sky: #80b7ef;
   --color-orchid: #ea81f0;
   --color-earth: #705655;
-  /* Derived calm surfaces: pale sage page, a soft step for recessed sections */
   --color-deep: #e4efe1;
 
-  /* Light theme roles. Names are historical: mist is the page, shola is the ink */
   --color-mist: #f2f7f0;
   --color-paper: #fbfdf9;
   --color-field: #ffffff;
@@ -28,7 +25,6 @@
   --color-action-2: #2c4d2c;
   --color-action-ink: #f2f7f0;
   --color-alert: #b3261e;
-  /* Water text: the sky blue darkened enough to read on the pale page */
   --color-water: #2c6aa8;
 
   --font-sans: "Anybody", ui-sans-serif, system-ui, sans-serif;
@@ -54,7 +50,6 @@
     outline: 3px solid var(--color-action);
     outline-offset: 3px;
   }
-  /* Recessed sections: soft sage background, same ink. In these, bg-shola is the surface and text-mist the ink */
   .on-dark {
     --color-shola: var(--color-deep);
     --color-mist: var(--color-pine);
@@ -64,7 +59,6 @@
 
 @layer components {
 
-  /* Condensed display cut: tall, tight, like the granite monoliths */
   .display {
     font-stretch: 58%;
     font-weight: 780;
@@ -108,7 +102,6 @@
   .btn-quiet:hover {
     box-shadow: inset 0 0 0 1.5px var(--color-shola);
   }
-  /* Bright action, only on dark backgrounds */
   .btn-glow {
     background: var(--color-glow);
     color: var(--color-pine);
@@ -148,8 +141,6 @@
     border-color: var(--color-alert);
   }
 
-  /* Trail row reached from a skyline peak */
-  /* Trail jumped to from the skyline or map: a light green wash with a bright edge */
   .trail-row:target {
     background: color-mix(in srgb, var(--color-glow) 22%, #ffffff);
     border-radius: 20px;
@@ -159,7 +150,6 @@
   }
 }
 
-/* The one orchestrated moment: hills rise, then their labels settle in */
 @keyframes rise {
   from { transform: translateY(100%); }
 }
@@ -197,7 +187,6 @@
   --map-surface: #ffffff;
 }
 
-/* Map markers: survey-map convention, triangles for hills and circles for water */
 .trail-pin {
   display: flex;
   align-items: center;
@@ -215,7 +204,6 @@
   background: var(--map-ink);
   box-shadow: 0 0 0 2px var(--map-halo);
 }
-/* Clip-path hides borders, so hills are an ink triangle with a green one inset */
 .trail-pin.is-hill .trail-pin-mark {
   position: relative;
   background: var(--map-ink);
@@ -248,7 +236,6 @@
   white-space: nowrap;
   text-shadow: 0 0 2px var(--map-halo), 0 0 2px var(--map-halo), 0 0 3px var(--map-halo);
 }
-/* River: a blue wave, drawn as an SVG mask over an ink outline */
 .trail-pin.is-river .trail-pin-mark {
   width: 26px;
   height: 14px;
@@ -441,7 +428,6 @@
   white-space: nowrap;
   text-shadow: 0 0 2px var(--map-halo), 0 0 3px var(--map-halo);
 }
-/* Rail marker: a sleeper-striped square */
 .station-pin-mark {
   width: 20px;
   height: 20px;

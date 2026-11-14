@@ -1,7 +1,6 @@
 import { BANGALORE, MAPTILER_KEY, distanceKm, loadMapSdk } from "./maptiler";
 import { TRAILS } from "./trails";
 
-// Waterfalls are read at zoom 10, which covers about 75 km either side
 export const NEAR_MAX_KM = 75;
 const STATION_FALLBACK_DEG = 0.5;
 
@@ -18,7 +17,6 @@ async function moveAndWait(map, center, zoom) {
   await pending;
 }
 
-// Invisible layers keep tiles loading for exactly the data we read, and nothing else
 function scannerStyle() {
   const tiles = (id) => `https://api.maptiler.com/tiles/${id}/tiles.json?key=${MAPTILER_KEY}`;
   const probe = (id, source, sourceLayer) => ({
@@ -34,7 +32,6 @@ function scannerStyle() {
       planet: { type: "vector", url: tiles("v4") },
       landform: { type: "vector", url: tiles("landform") },
       outdoor: { type: "vector", url: tiles("outdoor") },
-      // The older OpenMapTiles set still names rivers; v4 waterways are unnamed
       omt: { type: "vector", url: tiles("v3") },
     },
     layers: [
@@ -47,7 +44,6 @@ function scannerStyle() {
   };
 }
 
-// One offscreen map is reused for every lookup; its tiles are the data source
 export async function createScanner() {
   const sdk = await loadMapSdk();
   const node = document.createElement("div");
@@ -94,7 +90,6 @@ function* vertices(geom) {
   else if (geom.type === "MultiLineString") for (const line of geom.coordinates) yield* line;
 }
 
-// The closest point of each named river, since a river's centre can be far from the user
 function nearestRiverPoints(features, user) {
   const best = new Map();
   for (const f of features) {
@@ -207,7 +202,6 @@ export async function nearestStation(scanner, place) {
     }))
     .filter((s) => s.name.trim());
 
-  // Only the tiles around the place are loaded, so farther junctions come from search
   if (!stations.length) stations = await stationFromSearch(place);
   if (!stations.length) return null;
 

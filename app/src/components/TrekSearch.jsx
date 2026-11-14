@@ -10,7 +10,6 @@ function localMatches(q) {
     .map((t) => ({ key: `ktes-${t.id}`, kind: "trail", trail: t, name: t.name, detail: `KTES trail, ${t.region}` }));
 }
 
-// Trek name input that suggests KTES trails first, then MapTiler places near Bangalore
 const TrekSearch = forwardRef(function TrekSearch({ value, onChange, onPick, ...inputProps }, ref) {
   const listId = useId();
   const [open, setOpen] = useState(false);

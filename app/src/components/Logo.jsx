@@ -1,4 +1,3 @@
-// Two granite bettas with a river at their foot, on a pine badge
 const LOGO_PATHS = {
   back: "M30 47C34 38.5 37.5 31 43 30 48.5 29 51.5 38 57 47Z",
   betta: "M7 47C11 41 14 36 18.5 35 21.5 34.4 23 31.5 25 25.5 27.8 17.2 37.2 16.2 40.8 24.4 43.6 30.6 45.5 38 49 47Z",

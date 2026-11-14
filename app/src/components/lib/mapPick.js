@@ -1,4 +1,3 @@
-// Tap anywhere on a map to plan a trek there; named peaks and falls under the tap give the name
 const NAMED_LAYERS = /peak|landform|outdoor_poi|poi_|mountain|water/;
 
 function nameAt(map, point) {

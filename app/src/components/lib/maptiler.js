@@ -2,7 +2,6 @@ export const MAPTILER_KEY = (import.meta.env.MAPTILER_API || "").trim();
 export const hasMapKey = MAPTILER_KEY.length > 0;
 
 export const BANGALORE = { lat: 12.9716, lng: 77.5946 };
-// Roughly 250 km around Bangalore, so searches stay local
 const NEAR_BANGALORE_BBOX = "75.6,11.6,79.2,14.4";
 
 let sdkPromise;
@@ -45,7 +44,6 @@ export async function searchPlaces(query, { signal } = {}) {
   };
   const url = (extra) =>
     `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json?${new URLSearchParams({ ...base, ...extra })}`;
-  // Peaks and falls are indexed as points of interest, which the default search leaves out
   const [pois, places] = await Promise.all(
     [url({ types: "poi" }), url({})].map(async (u) => {
       const res = await fetch(u, { signal });

@@ -15,7 +15,6 @@ function getPosition() {
   });
 }
 
-// Location, nearby search and a one-at-a-time station lookup queue
 export default function useNearby() {
   const [phase, setPhase] = useState("idle");
   const [user, setUser] = useState(null);
@@ -30,7 +29,6 @@ export default function useNearby() {
   const pump = useCallback(async () => {
     if (working.current) return;
     working.current = true;
-    // A new search swaps the queue, so this loop simply carries on with the fresh one
     while (queue.current.length) {
       const id = run.current;
       const p = queue.current.shift();

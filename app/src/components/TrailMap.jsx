@@ -15,7 +15,6 @@ function ringFeature(km) {
   return { type: "Feature", properties: { km }, geometry: { type: "LineString", coordinates: pts } };
 }
 
-// Neighbours to the east would collide with a right-hand label, so move it left or below
 function labelSide(t, others) {
   const close = (o, dir) => o !== t && Math.abs(o.lat - t.lat) < 0.1 && dir * (o.lng - t.lng) > 0 && Math.abs(o.lng - t.lng) < 0.6;
   const east = others.some((o) => close(o, 1));
